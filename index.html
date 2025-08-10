@@ -499,9 +499,36 @@
                 align-items: stretch;
                 gap: 1rem;
             }
-
             .scripture-tiles {
                 grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+      /* Z Fold and ultra-narrow screens (closed fold) */
+        @media (max-width: 400px) {
+            .container {
+                padding: 0 12px !important;
+            }
+            
+            .issues-grid {
+                gap: 0.5rem;
+                padding: 0 4px !important;
+            }
+            
+            .issue-card {
+                padding: 0.3rem;
+                font-size: 0.85rem;
+            }
+            
+            .issue-title {
+                font-size: 0.9rem;
+            }
+            
+            .resource-count {
+                gap: 0.15rem;
+            }
+            
+            .resource-icon, .book-icon {
+                transform: scale(0.8);
             }
         }
     </style>
@@ -963,4 +990,4 @@
         }
     </script>
 </body>
-</html>
+</html> --
