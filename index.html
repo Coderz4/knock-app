@@ -1,362 +1,195 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>KNOCK — Wheel Picker + Accordion (Minimal Stylish)</title>
-  <style>
-    :root{
-      --bg:#0f1724; --card:#0b1220aa; --glass:#ffffff11;
-      --accent:#8b5cf6; --muted:#9aa4b2; --text:#ecf0f6;
-      --radius:14px; --gap:12px; --item-h:52px;
-      --shadow: 0 8px 24px rgba(2,6,23,0.6);
-      --maxw:520px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071027 0%,#0f1724 60%);
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-    }
-
-    .wrap{
-      width:100%;
-      max-width:var(--maxw);
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border-radius:18px;
-      box-shadow:var(--shadow);
-      padding:18px;
-      backdrop-filter: blur(6px) saturate(120%);
-    }
-
-    h1{font-size:18px;margin:6px 0 14px 0;font-weight:600;color:var(--text)}
-    p.subtitle{margin:0 0 12px 0;color:var(--muted);font-size:13px}
-
-    /* wheel picker */
-    .picker-row{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      justify-content:space-between;
-    }
-
-    .wheel {
-      width:160px;
-      height: calc(var(--item-h) * 3); /* show 3 items: top, selected, bottom */
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      -webkit-overflow-scrolling: touch;
-      border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 6px 18px rgba(2,6,23,0.45) inset;
-      position:relative;
-      padding: calc((var(--item-h) * 3 / 2) - (var(--item-h) / 2)) 0; /* vertical padding to center */
-    }
-
-    .wheel ul{
-      list-style:none;
-      margin:0;
-      padding:0;
-    }
-
-    .wheel li{
-      height:var(--item-h);
-      line-height:var(--item-h);
-      text-align:center;
-      font-weight:600;
-      font-size:16px;
-      color:var(--muted);
-      scroll-snap-align: center;
-      user-select:none;
-      transition: color .12s, transform .12s;
-    }
-
-    .wheel li.selected{
-      color:var(--text);
-      transform: scale(1.06);
-      letter-spacing:0.6px;
-    }
-
-    /* highlight slot */
-    .slot{
-      pointer-events:none;
-      position:absolute;
-      left:0;right:0;
-      top:calc(50% - var(--item-h)/2);
-      height:var(--item-h);
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 6px 20px rgba(139,92,246,0.08) inset;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
-    }
-
-    /* small label & hidden native select (for accessibility) */
-    .label-wrap{flex:1;margin-left:6px}
-    .label {font-size:13px;color:var(--muted);margin-bottom:6px}
-    .native {
-      display:block;
-      width:100%;
-      padding:10px 12px;
-      border-radius:10px;
-      background: rgba(255,255,255,0.02);
-      border:1px solid rgba(255,255,255,0.02);
-      color:var(--text);
-      font-weight:600;
-      letter-spacing:0.4px;
-    }
-    .native:focus{outline:2px solid rgba(139,92,246,0.18)}
-
-    /* accordion */
-    .accordion{margin-top:18px}
-    .acc-item{border-radius:10px;margin-bottom:10px;overflow:hidden;background:var(--card)}
-    .acc-head{
-      display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;
-      gap:12px;
-    }
-    .acc-title{font-weight:700}
-    .acc-meta{color:var(--muted);font-size:13px}
-    .acc-body{padding:12px 14px;border-top:1px solid rgba(255,255,255,0.02);display:none}
-    .acc-body p{margin:0;color:var(--muted);line-height:1.35;font-size:14px}
-
-    /* subtle responsive */
-    @media (max-width:520px){
-      .wheel{width:130px}
-      :root{--maxw:420px}
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KNOCK — Fixed Wheel (no bounce)</title>
+<style>
+  :root{--bg:#071427;--muted:#9aa4b2;--text:#e7eef8;--item-h:84px;--wheel-w:140px}
+  *{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:#041022;color:var(--text)}
+  body{display:flex;align-items:center;justify-content:center;padding:28px}
+  .card{width:100%;max-width:760px;background:linear-gradient(180deg,#0b2233,#071427);border-radius:18px;padding:22px}
+  .main{display:flex;gap:22px;align-items:flex-start}
+  .wheel{width:var(--wheel-w);height:calc(var(--item-h)*3);overflow-y:auto;scroll-snap-type:y mandatory;padding:0;border-radius:12px;background:rgba(0,0,0,0.12);position:relative}
+  .wheel ul{list-style:none;margin:0;padding:0}
+  .wheel li{height:var(--item-h);line-height:var(--item-h);text-align:center;font-weight:700;color:var(--muted);scroll-snap-align:center;margin:6px 8px;border-radius:10px;transition:all .12s}
+  .wheel li.selected{color:var(--text);background:rgba(124,92,255,0.08);transform:scale(1.03)}
+  .spacer{pointer-events:none;background:transparent;margin:0;padding:0}
+  .slot{position:absolute;left:6px;right:6px;top:50%;transform:translateY(-42px);height:84px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)}
+  .right{flex:1}
+  .selected-value{padding:12px 14px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:14px;font-weight:700}
+  .acc-item{background:rgba(0,0,0,0.12);border-radius:10px;margin-bottom:10px;overflow:hidden}
+  .acc-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;cursor:pointer}
+  .acc-title{font-weight:700}
+  .acc-sub{color:var(--muted);font-size:13px}
+  .acc-body{padding:12px 16px;border-top:1px solid rgba(255,255,255,0.02);display:none}
+</style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <h1>KNOCK — Letter Picker</h1>
-    <p class="subtitle">Swipe the wheel (or use keyboard) and then open an emotion below.</p>
+  <div class="card" role="main">
+    <h3 style="margin:0 0 8px 0">KNOCK — Letter Picker</h3>
+    <p style="margin:0 0 16px 0;color:var(--muted)">Wheel shows A–Z. Emotions appear if present in DATA.</p>
 
-    <div class="picker-row" aria-hidden="false">
-      <div class="wheel" id="wheel" role="listbox" aria-label="Select letter" tabindex="0">
-        <ul id="wheelList" aria-live="polite"></ul>
-        <div class="slot" aria-hidden="true"></div>
+    <div class="main">
+      <div style="position:relative">
+        <div class="wheel" id="wheel" role="listbox" tabindex="0" aria-label="Letter wheel">
+          <ul id="wheelList" aria-live="polite"></ul>
+          <div class="slot" aria-hidden="true"></div>
+        </div>
       </div>
 
-      <div class="label-wrap">
-        <div class="label">Selected</div>
-        <input id="nativeSelect" class="native" readonly aria-readonly="true" value="—" />
+      <div class="right">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Selected</div>
+        <div id="selectedValue" class="selected-value">—</div>
+        <div id="accordion"></div>
       </div>
-    </div>
-
-    <!-- accordion for emotions -->
-    <div class="accordion" id="accordion" aria-live="polite">
-      <!-- populated by JS -->
     </div>
   </div>
 
-  <script>
-    // Minimal sample data (letters -> emotions -> scriptures)
-    const DATA = {
-      A: {
-        Anxiety: [
-          {verse:"Philippians 4:6-7", text:"Do not be anxious about anything; pray and present your requests to God."},
-          {verse:"1 Peter 5:7", text:"Cast all your anxiety on him because he cares for you."}
-        ],
-        Anger: [
-          {verse:"Ephesians 4:26", text:"In your anger do not sin."}
-        ]
-      },
-      B: {
-        Bitterness: [
-          {verse:"Hebrews 12:15", text:"See to it that no bitter root grows up."}
-        ],
-        Brokenness: [
-          {verse:"Psalm 34:18", text:"The LORD is close to the brokenhearted."}
-        ]
-      },
-      C: {
-        Confusion: [
-          {verse:"Proverbs 3:5", text:"Trust in the LORD with all your heart."}
-        ]
-      }
-      // other letters are intentionally absent — wheel still shows A-Z
-    };
+<script>
+  // sample DATA (emotions only where present)
+  const DATA = {
+    A: { Anxiety:[{verse:"Phil 4:6-7",text:"Do not be anxious..."},{verse:"1 Pet 5:7",text:"Cast all your anxiety on him."}], Anger:[{verse:"Eph 4:26",text:"In your anger do not sin."}] },
+    B:{}, C:{}, D:{}, E:{}, F:{}, G:{}, H:{}, I:{}, J:{}, K:{}, L:{}, M:{}, N:{}, O:{}, P:{}, Q:{}, R:{}, S:{}, T:{}, U:{}, V:{}, W:{}, X:{}, Y:{}, Z:{}
+  };
 
-    // create full A-Z array
-    const LETTERS = Array.from({length:26}, (_,i)=>String.fromCharCode(65+i));
+  const LETTERS = Array.from({length:26}, (_,i)=>String.fromCharCode(65+i));
+  const wheel = document.getElementById('wheel');
+  const wheelList = document.getElementById('wheelList');
+  const selectedValue = document.getElementById('selectedValue');
+  const accordion = document.getElementById('accordion');
 
-    const wheel = document.getElementById('wheel');
-    const wheelList = document.getElementById('wheelList');
-    const native = document.getElementById('nativeSelect');
-    const accordion = document.getElementById('accordion');
+  // flag to ignore scroll events while programmatic snapping is active
+  let isSnapping = false;
+  let snapTimer = null;
 
-    // populate wheel items
-    function buildWheel(){
-      wheelList.innerHTML = '';
-      // add empty top/bottom spacer items for nicer pad (optional)
-      LETTERS.forEach(L => {
-        const li = document.createElement('li');
-        li.textContent = L;
-        li.dataset.letter = L;
-        li.setAttribute('role','option');
-        wheelList.appendChild(li);
-      });
-      // small initial scroll to center first item
-      requestAnimationFrame(()=> snapToIndex(0) );
-    }
-
-    // helper: compute nearest item index based on wheel scroll
-    function getNearestIndex(){
-      const children = Array.from(wheelList.children);
-      if(!children.length) return 0;
-      const rect = wheel.getBoundingClientRect();
-      const centerY = rect.top + rect.height/2;
-      let nearest = 0;
-      let minDist = Infinity;
-      children.forEach((ch,i) => {
-        const r = ch.getBoundingClientRect();
-        const c = r.top + r.height/2;
-        const d = Math.abs(centerY - c);
-        if(d < minDist){ minDist = d; nearest = i; }
-      });
-      return nearest;
-    }
-
-    // snap animation: scroll so that item at idx centers
-    function snapToIndex(idx){
-      const children = wheelList.children;
-      if(!children[idx]) return;
-      const rect = wheel.getBoundingClientRect();
-      const itemRect = children[idx].getBoundingClientRect();
-      const offset = (itemRect.top + itemRect.height/2) - (rect.top + rect.height/2);
-      wheel.scrollBy({top: offset, left:0, behavior:'smooth'});
-      setSelectedByIndex(idx);
-    }
-
-    // set selected class & native input
-    function setSelectedByIndex(idx){
-      const children = Array.from(wheelList.children);
-      children.forEach((c,i)=> c.classList.toggle('selected', i === idx));
-      const chosen = children[idx]?.dataset?.letter || '—';
-      native.value = chosen;
-      // update accordion (show emotions for chosen letter)
-      renderAccordionForLetter(chosen);
-    }
-
-    // debounce helper
-    function debounce(fn, ms=120){
-      let t; return (...a)=>{ clearTimeout(t); t = setTimeout(()=>fn(...a), ms); };
-    }
-
-    // when user stops scrolling - snap
-    const onScrollEnd = debounce(()=>{
-      const idx = getNearestIndex();
-      snapToIndex(idx);
-    }, 140);
-
-    // keyboard controls
-    function onKey(e){
-      const children = wheelList.children;
-      const current = children.findIndex(c => c.classList.contains('selected'));
-      if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){
-        const next = Math.min(children.length-1, Math.max(0, current + 1));
-        snapToIndex(next);
-      } else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){
-        const prev = Math.max(0, current - 1);
-        snapToIndex(prev);
-      } else if(e.key === 'Home'){
-        snapToIndex(0);
-      } else if(e.key === 'End'){
-        snapToIndex(children.length - 1);
-      }
-    }
-
-    // accordion rendering
-    function renderAccordionForLetter(letter){
-      accordion.innerHTML = '';
-      if(!letter || !DATA[letter]){
-        const p = document.createElement('p');
-        p.className = 'subtitle';
-        p.style.color = 'var(--muted)';
-        p.textContent = 'No emotions added for this letter yet.';
-        accordion.appendChild(p);
-        return;
-      }
-      const emotions = Object.keys(DATA[letter]);
-      emotions.forEach(em => {
-        const item = document.createElement('div');
-        item.className = 'acc-item';
-
-        const head = document.createElement('div');
-        head.className = 'acc-head';
-        head.tabIndex = 0;
-        head.setAttribute('role','button');
-        head.setAttribute('aria-expanded','false');
-
-        const t = document.createElement('div');
-        t.innerHTML = `<div class="acc-title">${em}</div><div class="acc-meta">${DATA[letter][em].length} verses</div>`;
-
-        const caret = document.createElement('div');
-        caret.innerHTML = '▸';
-        caret.style.opacity = 0.6;
-        caret.style.transform = 'rotate(0deg)';
-        caret.style.transition = 'transform .12s';
-
-        head.appendChild(t);
-        head.appendChild(caret);
-
-        const body = document.createElement('div');
-        body.className = 'acc-body';
-        DATA[letter][em].forEach(v => {
-          const p = document.createElement('p');
-          p.innerHTML = `<strong style="color:var(--text)">${v.verse}</strong><br/><span style="color:var(--muted)">${v.text}</span>`;
-          p.style.marginBottom = '8px';
-          body.appendChild(p);
-        });
-
-        head.addEventListener('click', ()=>{
-          const open = body.style.display === 'block';
-          body.style.display = open ? 'none' : 'block';
-          head.setAttribute('aria-expanded', (!open).toString());
-          caret.style.transform = open ? 'rotate(0deg)' : 'rotate(90deg)';
-        });
-        head.addEventListener('keydown', (e)=>{
-          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); head.click(); }
-        });
-
-        item.appendChild(head);
-        item.appendChild(body);
-        accordion.appendChild(item);
-      });
-    }
-
-    // init
-    buildWheel();
-
-    // events
-    wheel.addEventListener('scroll', onScrollEnd);
-    wheel.addEventListener('wheel', () => {}); // keep native scroll
-    wheel.addEventListener('keydown', onKey);
-
-    // click on list item to snap to it
-    wheelList.addEventListener('click', (ev)=>{
-      const li = ev.target.closest('li');
-      if(!li) return;
-      const idx = Array.from(wheelList.children).indexOf(li);
-      snapToIndex(idx);
+  function buildWheel(){
+    wheelList.innerHTML = '';
+    // append real letters
+    LETTERS.forEach(L=>{
+      const li = document.createElement('li');
+      li.textContent = L;
+      li.dataset.letter = L;
+      li.setAttribute('role','option');
+      wheelList.appendChild(li);
     });
 
-    // ensure first item selected on load after fonts/layout
-    window.addEventListener('load', ()=> {
-      // pick first real index 0
+    // add spacers after layout so first/last can center
+    requestAnimationFrame(()=>{
+      const realItem = wheelList.querySelector('li[data-letter]');
+      if(!realItem) return;
+      const itemH = realItem.getBoundingClientRect().height;
+      const wheelH = wheel.getBoundingClientRect().height;
+      const spacerH = Math.max(0, (wheelH - itemH) / 2);
+
+      const top = document.createElement('li'); top.className = 'spacer'; top.style.height = spacerH + 'px';
+      const bottom = document.createElement('li'); bottom.className = 'spacer'; bottom.style.height = spacerH + 'px';
+      wheelList.insertBefore(top, wheelList.firstChild);
+      wheelList.appendChild(bottom);
+
+      // center first real item
       snapToIndex(0);
     });
+  }
 
-    // expose a small helper to programmatically select a letter (if needed)
-    window.selectLetter = (L) => {
-      const idx = LETTERS.indexOf(L);
-      if(idx >= 0) snapToIndex(idx);
-    };
-  </script>
+  function realItems(){ return Array.from(wheelList.querySelectorAll('li[data-letter]')); }
+
+  function getNearestIndex(){
+    const items = realItems();
+    if(!items.length) return 0;
+    const rect = wheel.getBoundingClientRect();
+    const centerY = rect.top + rect.height/2;
+    let nearest=0, minDist=Infinity;
+    items.forEach((ch,i)=>{
+      const r = ch.getBoundingClientRect();
+      const c = r.top + r.height/2;
+      const d = Math.abs(centerY - c);
+      if(d < minDist){ minDist = d; nearest = i; }
+    });
+    return nearest;
+  }
+
+  function snapToIndex(idx){
+    const items = realItems();
+    if(!items[idx]) return;
+    // set flag to ignore scroll events while snapping
+    isSnapping = true;
+    clearTimeout(snapTimer);
+
+    const rect = wheel.getBoundingClientRect();
+    const itemRect = items[idx].getBoundingClientRect();
+    const offset = (itemRect.top + itemRect.height/2) - (rect.top + rect.height/2);
+    wheel.scrollBy({top: offset, left:0, behavior:'smooth'});
+
+    // safety: unset snapping after animation window
+    snapTimer = setTimeout(()=>{ isSnapping = false; }, 300);
+    setSelectedByIndex(idx);
+  }
+
+  function setSelectedByIndex(idx){
+    const items = realItems();
+    items.forEach((c,i)=> c.classList.toggle('selected', i === idx));
+    const chosen = items[idx]?.dataset?.letter || '—';
+    selectedValue.textContent = chosen;
+    renderAccordionForLetter(chosen);
+  }
+
+  // debounce helper for user scroll end
+  function debounce(fn, ms=120){ let t; return (...a)=>{ clearTimeout(t); t = setTimeout(()=>fn(...a), ms); }; }
+  const onScrollEnd = debounce(()=>{
+    if(isSnapping) return; // ignore if programmatically snapping
+    const idx = getNearestIndex();
+    snapToIndex(idx);
+  }, 120);
+
+  // render accordion (emotions)
+  function renderAccordionForLetter(letter){
+    accordion.innerHTML = '';
+    if(!letter || !DATA[letter] || Object.keys(DATA[letter]).length === 0){
+      const p = document.createElement('p'); p.style.color = 'var(--muted)'; p.textContent = 'No emotions added for this letter yet.'; accordion.appendChild(p); return;
+    }
+    Object.keys(DATA[letter]).forEach(em=>{
+      const item = document.createElement('div'); item.className = 'acc-item';
+      const head = document.createElement('div'); head.className = 'acc-head'; head.tabIndex = 0; head.setAttribute('role','button'); head.setAttribute('aria-expanded','false');
+      const left = document.createElement('div');
+      const title = document.createElement('div'); title.className = 'acc-title'; title.textContent = em;
+      const sub = document.createElement('div'); sub.className = 'acc-sub'; sub.textContent = `${DATA[letter][em].length} verses`;
+      left.appendChild(title); left.appendChild(sub);
+      const caret = document.createElement('div'); caret.textContent = '▸'; caret.style.opacity = 0.7;
+      head.appendChild(left); head.appendChild(caret);
+      const body = document.createElement('div'); body.className = 'acc-body';
+      DATA[letter][em].forEach(v=>{
+        const p = document.createElement('p'); p.innerHTML = `<strong style="color:var(--text)">${v.verse}</strong><br/><span style="color:var(--muted)">${v.text}</span>`; p.style.marginBottom='10px';
+        body.appendChild(p);
+      });
+      head.addEventListener('click', ()=>{ const open = body.style.display==='block'; body.style.display = open ? 'none' : 'block'; head.setAttribute('aria-expanded', (!open).toString()); caret.style.transform = open ? 'rotate(0deg)' : 'rotate(90deg)'; });
+      head.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); head.click(); }});
+      item.appendChild(head); item.appendChild(body); accordion.appendChild(item);
+    });
+  }
+
+  // events
+  wheelList.addEventListener('click', ev=>{
+    const li = ev.target.closest('li[data-letter]');
+    if(!li) return;
+    const idx = realItems().indexOf(li);
+    if(idx>=0) snapToIndex(idx);
+  });
+
+  wheel.addEventListener('scroll', ()=>{ if(isSnapping) return; onScrollEnd(); });
+  wheel.addEventListener('keydown', (e)=>{
+    const items = realItems();
+    const current = items.findIndex(c => c.classList.contains('selected'));
+    if(e.key === 'ArrowDown' || e.key === 'ArrowRight'){ snapToIndex(Math.min(items.length-1, current+1)); }
+    else if(e.key === 'ArrowUp' || e.key === 'ArrowLeft'){ snapToIndex(Math.max(0, current-1)); }
+    else if(e.key === 'Home'){ snapToIndex(0); }
+    else if(e.key === 'End'){ snapToIndex(items.length-1); }
+  });
+
+  // init
+  window.addEventListener('load', ()=>{ buildWheel(); });
+  // helper
+  window.selectLetter = L => { const idx = LETTERS.indexOf(L); if(idx>=0) snapToIndex(idx); };
+</script>
 </body>
 </html>
