@@ -1,5 +1,4 @@
-<div class="issue-list-header">
-                <h2 class="issue-list<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,10 +10,24 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        // Close export menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const exportMenu = document.getElementById('exportMenu');
+            const exportButton = event.target.closest('[onclick="toggleExportMenu()"]');
+            
+            if (exportMenu && !exportButton && !exportMenu.contains(event.target)) {
+                exportMenu.style.display = 'none';
+            }
+        });
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(128, 94, 133, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(128, 94, 133, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(248, 249, 250, 0.8) 0%, transparent 50%),
+                linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             color: #2c3e50;
             line-height: 1.6;
             min-height: 100vh;
@@ -58,7 +71,7 @@
         
         nav {
             background: rgba(128, 94, 133, 0.1);
-            padding: 0.25rem 0;
+            padding: 0.75rem 0;
             text-align: center;
             position: sticky;
             top: 0;
@@ -66,7 +79,8 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(128, 94, 133, 0.1);
-            }
+        }
+
         nav::before {
             content: '';
             position: absolute;
@@ -77,6 +91,7 @@
             background: rgba(255, 255, 255, 0.95);
             z-index: -1;
         }
+        
         .nav-links {
             display: inline-block;
             text-align: center;
@@ -85,13 +100,13 @@
         .nav-link {
             color: #805E85;
             text-decoration: none;
-            padding: 0.25rem 0.75rem;
+            padding: 0.5rem 1.5rem;
             transition: color 0.3s ease;
-            font-weight: 400;
+            font-weight: 600;
             cursor: pointer;
             display: inline-block;
-            margin: 0 0.5rem;
-            font-size: 0.9rem;
+            margin: 0 0.75rem;
+            font-size: 1.4rem;
         }
         
         .nav-link:hover, .nav-link.active {
@@ -109,14 +124,6 @@
         
         .alphabet-section {
             margin: 0.5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 1.8rem;
-            color: #805E85;
-            margin-bottom: 2rem;
-            font-weight: 300;
         }
         
         .alphabet-grid {
@@ -148,88 +155,21 @@
             font-size: 2rem;
             font-weight: 300;
             color: #805E85;
-        }
-
-        .issue-list-header {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            margin-bottom: 1.5rem;
-        }
-
-        .issue-list-title {
-            font-size: 1.8rem;
-            color: #805E85;
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        .breadcrumb {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #6c757d;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            justify-content: center;
-        }
-
-        .breadcrumb-link {
-            color: #805E85;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .breadcrumb-link:hover {
-            color: #6b4c70;
-        }
-
-        .controls-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .sort-dropdown {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: #6c757d;
-            font-size: 0.85rem;
-        }
-
-        .sort-select {
-            padding: 0.4rem 0.75rem;
-            border: 1px solid #e9ecef;
-            border-radius: 6px;
-            background: white;
-            color: #495057;
-            cursor: pointer;
-            outline: none;
-            transition: border-color 0.2s ease;
-            font-size: 0.85rem;
-        }
-
-        .sort-select:focus {
-            border-color: #805E85;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .issues-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
         }
 
         .issue-card {
             background: white;
-            border-radius: 12px;
-            padding: 0.4rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border: 1px solid #f1f3f4;
+            border-radius: 20px;
+            padding: 0.25rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             cursor: pointer;
             transition: all 0.2s ease;
             position: relative;
@@ -237,38 +177,22 @@
         }
 
         .issue-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(128, 94, 133, 0.12);
-            border-color: rgba(128, 94, 133, 0.3);
-        }
-
-        .issue-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: #805E85;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         }
 
         .issue-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
-            margin-bottom: 0.15rem;
+            margin-bottom: 0.5rem;
         }
 
         .issue-title {
-            font-size: 1rem;
-            color: #2c3e50;
+            font-size: 1.3rem;
+            color: #805E85;
             font-weight: 600;
             margin: 0;
-        }
-
-        .progress-text {
-            font-size: 0.7rem;
-            color: #6c757d;
         }
 
         .issue-resources {
@@ -282,209 +206,369 @@
 
         .resource-count {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 0.2rem;
-        }
-
-        .resource-icon {
-            font-size: 14px;
-        }
-
-        /* Modern book icon styling */
-        .book-icon {
-            width: 14px;
-            height: 14px;
-            background: currentColor;
-            position: relative;
-            border-radius: 1px;
-        }
-        
-        .book-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 2px;
-            width: 1px;
-            height: 100%;
-            background: white;
-        }
-        
-        .book-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 1px;
-            width: 2px;
-            height: 100%;
-            background: currentColor;
-            border-radius: 0 1px 1px 0;
-            opacity: 0.7;
-        }
-
-        .overcome-btn {
-            background: transparent;
-            border: 1px solid #805E85;
-            color: #805E85;
-            padding: 0.15rem 0.5rem;
-            border-radius: 8px;
+            gap: 0.1rem;
             cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
             transition: all 0.2s ease;
+        }
+
+        .resource-count:hover {
+            background: rgba(128, 94, 133, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .resource-text {
             font-size: 0.65rem;
             font-weight: 500;
-        }
-
-        .overcome-btn:hover {
-            background: #805E85;
-            color: white;
-        }
-
-        .overcome-btn.completed {
-            background: #28a745;
-            border-color: #28a745;
-            color: white;
-        }
-
-        .overcome-btn.completed:hover {
-            background: #218838;
-            border-color: #218838;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 3rem;
-            color: #6c757d;
-        }
-
-        .no-results-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .back-btn {
-            background: transparent;
             color: #805E85;
-            border: 1px solid #805E85;
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            margin-bottom: 1.5rem;
-            font-size: 0.9rem;
-          position: sticky;
-          top: 60px; /* Adjust based on nav height */
-          z-index: 99;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          background: rgba(255, 255, 255, 0.9);
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .back-btn:hover {
-            background: #805E85;
-            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Scripture tiles styles */
-        .scripture-tiles {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .scripture-tile {
-            background: white;
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border: 1px solid #f1f3f4;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scripture-tile:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(128, 94, 133, 0.12);
-            border-color: rgba(128, 94, 133, 0.3);
-        }
-
-        .scripture-tile::before {
-            content: '';
-            position: absolute;
+        .modal-overlay {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: #805E85;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            overflow: hidden;
         }
 
-        .scripture-verse {
-            font-style: italic;
-            color: #2c3e50;
-            margin-bottom: 0.75rem;
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-
-        .scripture-reference {
-            font-weight: 500;
-            color: #805E85;
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .scripture-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0.75rem;
-            border-top: 1px solid #f1f3f4;
-        }
-
-        .read-checkbox {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-            padding: 0.3rem;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            font-size: 0.85rem;
-            color: #6c757d;
-        }
-
-        .read-checkbox input[type="checkbox"] {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border: 1px solid #dee2e6;
-            border-radius: 3px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s ease;
-        }
-
-        .read-checkbox input[type="checkbox"]:checked {
-            background: #805E85;
-            border-color: #805E85;
-        }
-
-        .read-checkbox input[type="checkbox"]:checked::after {
-            content: '✓';
+        .modal-content {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-y: auto;
+            
+            width: 95%;
+            height: 90%;
+            max-height: 90vh;
+            max-width: min(95vw, calc(100vw - 20px));
         }
 
-        .progress-counter {
-            font-size: 0.8rem;
+        @media (min-width: 1024px) {
+            .modal-content {
+                width: 75%;
+                height: 82%;
+                max-height: 82vh;
+                padding: 2rem;
+                max-width: min(75vw, calc(100vw - 80px));
+            }
+        }
+
+        .modal-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-content > * {
+            flex-shrink: 0;
+        }
+
+        .modal-content .notes-textarea {
+            flex-grow: 1;
+            min-height: 120px;
+        }
+
+        .modal-header {
+            font-size: 1.2rem;
+            color: #805E85;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .notes-textarea {
+                min-height: 200px;
+                font-size: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        .notes-textarea:focus {
+            border-color: #674172;
+        }
+
+        .save-btn {
+            background: #674172;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .confirmation-message {
+            text-align: center;
+            color: #28a745;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .scripture-card {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            box-shadow: 0 4px 12px rgba(128, 94, 133, 0.1);
+            background: white;
+            max-width: 600px;
+        }
+
+        @media (min-width: 1024px) {
+            .scripture-card {
+                max-width: 1000px;
+                padding: 2.5rem;
+            }
+        }
+
+        .accordion {
+            margin-top: 1rem;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: 1fr;
+            grid-auto-rows: auto;
+            align-items: start;
+            justify-items: stretch;
+        }
+
+        @media (min-width: 768px) {
+            .accordion {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .accordion {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .accordion-item {
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 2px 8px rgba(128, 94, 133, 0.1);
+        }
+
+        .accordion-title {
+            cursor: pointer;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f4 100%);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #805E85;
+            border-left: 4px solid #805E85;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            margin: 0;
+            flex-shrink: 0;
+            box-sizing: border-box;
+            gap: 1rem;
+        }
+
+        .accordion-title-text {
+            flex: 1;
+            text-align: left;
+            line-height: 1.4;
+            min-width: 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .accordion-icon {
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .accordion-title:hover {
+            background: linear-gradient(135deg, #674172 0%, #5a3862 100%);
+            color: white;
+        }
+
+        .accordion-item.active .accordion-title {
+            background: linear-gradient(135deg, #674172 0%, #5a3862 100%);
+            color: white;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+            color: #2c3e50;
+            font-size: 1rem;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            flex-grow: 0;
+            box-sizing: border-box;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .accordion-item.active .accordion-content {
+                max-height: 600px;
+                padding: 1.5rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        .verse-text {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        #previousNotesSection {
+            margin-bottom: 1rem;
+            flex-shrink: 0;
+        }
+
+        #notesWheel {
+            height: 200px;
+            max-height: 200px;
+            overflow: hidden;
+            overflow-y: auto;
+            position: relative;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            cursor: pointer;
+            touch-action: none;
+            user-select: none;
+        }
+
+        @media (min-width: 1024px) {
+            #notesWheel {
+                height: 300px;
+                max-height: 300px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            #notesWheel {
+                height: 250px;
+                max-height: 250px;
+            }
+        }
+
+        .wheel-note-item {
+            height: 80px;
+            padding: 0.75rem;
+            margin: 2px 0;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+            user-select: none;
+            pointer-events: auto !important;
+        }
+
+        .wheel-note-item:hover {
+            background: rgba(103, 65, 114, 0.08);
+            border-color: #674172;
+            transform: scale(1.01);
+            box-shadow: 0 2px 8px rgba(103, 65, 114, 0.15);
+        }
+
+        .wheel-note-item:active {
+            transform: scale(0.99);
+            background: rgba(103, 65, 114, 0.15);
+        }
+
+        .wheel-note-timestamp {
+            font-weight: 600;
+            color: #674172;
+            font-size: 0.85rem;
+            pointer-events: none;
+            margin-bottom: 0.25rem;
+        }
+
+        .wheel-note-preview {
             color: #6c757d;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            pointer-events: none;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            max-height: 3.9em;
+        }
+
+        .wheel-note-preview::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30%;
+            height: 1.3em;
+            background: linear-gradient(to right, transparent, white);
+            pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -496,18 +580,12 @@
                 font-size: 2rem;
             }
             
-            .nav-links {
-                gap: 1rem;
-            }
             .nav-link {
-                padding: 0.2rem 0.4rem;
-                margin: 0 0.2rem;
-                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+                margin: 0 0.4rem;
+                font-size: 1.1rem;
             }
 
-            .nav {
-                padding: 0.2rem 0;
-            }
             .alphabet-grid {
                 grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
             }
@@ -523,17 +601,13 @@
             .issues-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
-            .controls-section {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 1rem;
-            }
-            .scripture-tiles {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+            .modal-content {
+                padding: 1rem;
+                border-radius: 8px;
             }
         }
-      /* Z Fold and ultra-narrow screens (closed fold) */
+        
         @media (max-width: 400px) {
             .container {
                 padding: 0 4px !important;
@@ -549,16 +623,13 @@
                 padding: 0.3rem;
                 font-size: 0.85rem;
             }
-            .nav-links {
-                gap: 0.5rem;
-            }
 
             .nav-link {
-                padding: 0.15rem 0.3rem;
-                margin: 0 0.1rem;
-                font-size: 0.75rem;
-                display: inline-block;
+                padding: 0.3rem 0.6rem;
+                margin: 0 0.2rem;
+                font-size: 0.9rem;
             }
+            
             .issue-title {
                 font-size: 0.9rem;
             }
@@ -566,9 +637,11 @@
             .resource-count {
                 gap: 0.15rem;
             }
-            
-            .resource-icon, .book-icon {
-                transform: scale(0.8);
+
+            .modal-content {
+                width: 98%;
+                padding: 0.75rem;
+                max-height: 90vh;
             }
         }
     </style>
@@ -587,6 +660,7 @@
             <div class="nav-links">
                 <a href="#" class="nav-link active" onclick="showPage('home')">Home</a>
                 <a href="#" class="nav-link" onclick="showPage('prayer-request')">Prayer Request</a>
+                <a href="#" class="nav-link" onclick="showPage('notes')">Notes</a>
                 <a href="#" class="nav-link" onclick="showPage('about')">About</a>
             </div>
         </div>
@@ -679,20 +753,14 @@
         </div>
 
         <div id="issue-list" class="page">
-            <button class="back-btn" onclick="showPage('home')">← Back to Home</button>
-            
-            <div class="issue-list-header">
-                <h2 class="issue-list-title" id="issue-list-title">Issues starting with "A"</h2>
-                
-                <div class="controls-section">
-                    <div class="sort-dropdown">
-                        <span>Sort by:</span>
-                        <select class="sort-select" id="sortSelect" onchange="sortIssues()">
-                            <option value="alphabetical">Alphabetical</option>
-                            <option value="popular">Most Popular</option>
-                            <option value="progress">Your Progress</option>
-                        </select>
-                    </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; padding: 0.25rem 0;">
+                <span onclick="goBack()" style="color: #805E85; text-decoration: none; font-size: 0.75rem; cursor: pointer;">← Back</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: #9ca3af; font-size: 0.75rem;">
+                    <span>Sort by:</span>
+                    <select style="padding: 0.25rem 0.5rem; border: 1px solid #f3f4f6; border-radius: 6px; background: #f9fafb; color: #6b7280; cursor: pointer; outline: none; font-size: 0.75rem;" id="sortSelect" onchange="sortIssues()">
+                        <option value="alphabetical">Alphabetical</option>
+                        <option value="popular">Most Popular</option>
+                    </select>
                 </div>
             </div>
             
@@ -705,6 +773,10 @@
                 <h1 style="font-size: 1.8rem; color: #805E85; margin-bottom: 0.5rem; font-weight: 500;">Submit a Prayer Request</h1>
                 <p style="color: #6c757d; font-size: 1rem;">Our community is here to pray with you</p>
             </div>
+        </div>
+
+        <div id="notes" class="page">
+            <!-- Notes content will be dynamically populated here -->
         </div>
 
         <div id="about" class="page">
@@ -722,29 +794,25 @@
                     title: 'Anxiety', 
                     description: 'Finding peace in times of worry and fear',
                     tags: ['Mental Health', 'Peace', 'Trust'],
-                    resources: { verses: 4, prayers: 5, videos: 3 },
-                    progress: 0
+                    resources: { verses: 4, prayers: 5, videos: 3 }
                 },
                 { 
                     title: 'Anger', 
                     description: 'Learning to respond with grace and self-control',
                     tags: ['Emotions', 'Self-Control', 'Forgiveness'],
-                    resources: { verses: 3, prayers: 4, videos: 1 },
-                    progress: 25
+                    resources: { verses: 3, prayers: 4, videos: 1 }
                 },
                 { 
                     title: 'Addiction', 
                     description: 'Breaking free through God\'s power and grace',
                     tags: ['Freedom', 'Healing', 'Strength'],
-                    resources: { verses: 5, prayers: 6, videos: 4 },
-                    progress: 0
+                    resources: { verses: 5, prayers: 6, videos: 4 }
                 },
                 { 
                     title: 'Abandonment', 
                     description: 'Knowing God will never leave or forsake you',
                     tags: ['Trust', 'God\'s Love', 'Security'],
-                    resources: { verses: 4, prayers: 3, videos: 2 },
-                    progress: 0
+                    resources: { verses: 4, prayers: 3, videos: 2 }
                 }
             ],
             'B': [
@@ -752,22 +820,19 @@
                     title: 'Bitterness', 
                     description: 'Releasing resentment and choosing forgiveness',
                     tags: ['Forgiveness', 'Healing', 'Freedom'],
-                    resources: { verses: 4, prayers: 4, videos: 2 },
-                    progress: 0
+                    resources: { verses: 4, prayers: 4, videos: 2 }
                 },
                 { 
                     title: 'Burnout', 
                     description: 'Finding rest and renewal in God\'s presence',
                     tags: ['Rest', 'Renewal', 'Balance'],
-                    resources: { verses: 5, prayers: 3, videos: 3 },
-                    progress: 0
+                    resources: { verses: 5, prayers: 3, videos: 3 }
                 },
                 { 
                     title: 'Betrayal', 
                     description: 'Healing from broken trust and relationships',
                     tags: ['Trust', 'Healing', 'Restoration'],
-                    resources: { verses: 3, prayers: 4, videos: 2 },
-                    progress: 0
+                    resources: { verses: 3, prayers: 4, videos: 2 }
                 }
             ],
             'D': [
@@ -775,22 +840,19 @@
                     title: 'Depression', 
                     description: 'Finding hope and joy in the midst of darkness',
                     tags: ['Hope', 'Joy', 'Mental Health'],
-                    resources: { verses: 4, prayers: 5, videos: 2 },
-                    progress: 0
+                    resources: { verses: 4, prayers: 5, videos: 2 }
                 },
                 { 
                     title: 'Doubt', 
                     description: 'Strengthening faith and trust in God',
                     tags: ['Faith', 'Trust', 'Assurance'],
-                    resources: { verses: 5, prayers: 4, videos: 3 },
-                    progress: 0
+                    resources: { verses: 5, prayers: 4, videos: 3 }
                 },
                 { 
                     title: 'Disappointment', 
                     description: 'Processing unmet expectations with grace',
                     tags: ['Grace', 'Hope', 'Perspective'],
-                    resources: { verses: 3, prayers: 3, videos: 1 },
-                    progress: 0
+                    resources: { verses: 3, prayers: 3, videos: 1 }
                 }
             ],
             'F': [
@@ -798,22 +860,19 @@
                     title: 'Fear', 
                     description: 'Walking in courage and faith, not fear',
                     tags: ['Courage', 'Faith', 'Trust'],
-                    resources: { verses: 4, prayers: 5, videos: 2 },
-                    progress: 0
+                    resources: { verses: 4, prayers: 5, videos: 2 }
                 },
                 { 
                     title: 'Forgiveness', 
                     description: 'Learning to forgive others and yourself',
                     tags: ['Forgiveness', 'Grace', 'Freedom'],
-                    resources: { verses: 5, prayers: 4, videos: 3 },
-                    progress: 0
+                    resources: { verses: 5, prayers: 4, videos: 3 }
                 },
                 { 
                     title: 'Failure', 
                     description: 'Rising again through God\'s grace and mercy',
                     tags: ['Grace', 'Restoration', 'Hope'],
-                    resources: { verses: 4, prayers: 4, videos: 2 },
-                    progress: 0
+                    resources: { verses: 4, prayers: 4, videos: 2 }
                 }
             ]
         };
@@ -845,17 +904,33 @@
 
         let currentLetter = '';
         let filteredIssues = [];
-        let overcomeChallenges = new Set();
+        let pageHistory = ['home'];
+        let notesStorage = {};
+        let currentIssueTitle = '';
+        let undoStack = [];
+        let redoStack = [];
+        let wheelNotes = [];
+        let currentWheelIndex = 0;
+        let wheelScrollPosition = 0;
 
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
             
+            if (pageHistory[pageHistory.length - 1] !== pageId) {
+                pageHistory.push(pageId);
+            }
+            
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => link.classList.remove('active'));
             if (event && event.target) {
                 event.target.classList.add('active');
+            }
+            
+            // If showing notes page, populate it with all saved notes
+            if (pageId === 'notes') {
+                populateNotesPage();
             }
         }
 
@@ -864,17 +939,36 @@
             const issues = issueData[letter] || [];
             filteredIssues = [...issues];
             
-            const titleEl = document.getElementById('issue-list-title');
-            const categoryEl = document.getElementById('breadcrumb-category');
-            
-            if (titleEl) titleEl.textContent = `Issues starting with "${letter}"`;
-            if (categoryEl) categoryEl.textContent = `Category ${letter}`;
-            
             renderIssues();
+            
+            pageHistory.push('issue-list');
             
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
             document.getElementById('issue-list').classList.add('active');
+        }
+
+        function goBack() {
+            if (event) event.preventDefault();
+            
+            if (pageHistory.length > 1) {
+                pageHistory.pop();
+                const previousPage = pageHistory[pageHistory.length - 1];
+                
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => page.classList.remove('active'));
+                document.getElementById(previousPage).classList.add('active');
+                
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                if (previousPage === 'home' || previousPage === 'prayer-request' || previousPage === 'notes' || previousPage === 'about') {
+                    const activeNavLink = document.querySelector(`[onclick="showPage('${previousPage}')"]`);
+                    if (activeNavLink) activeNavLink.classList.add('active');
+                }
+            } else {
+                showPage('home');
+            }
         }
 
         function renderIssues() {
@@ -882,7 +976,7 @@
             if (!container) return;
             
             if (filteredIssues.length === 0) {
-                container.innerHTML = '<div class="no-results"><div class="no-results-icon">🔍</div><h3>No issues found</h3><p>Try adjusting your filter or check back later for new content.</p></div>';
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #6c757d;"><div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;">🔍</div><h3>No issues found</h3><p>Try adjusting your filter or check back later for new content.</p></div>';
                 return;
             }
             
@@ -891,32 +985,30 @@
             filteredIssues.forEach(issue => {
                 const issueDiv = document.createElement('div');
                 issueDiv.className = 'issue-card';
-                issueDiv.onclick = () => showResourcePage(issue.title);
                 
-                issueDiv.innerHTML = `
-                    <div class="issue-header">
-                        <div class="issue-title">${issue.title}</div>
-                        <span class="progress-text">${issue.progress}%</span>
+                const header = document.createElement('div');
+                header.className = 'issue-header';
+                header.innerHTML = `<div class="issue-title">${issue.title}</div>`;
+                
+                const resources = document.createElement('div');
+                resources.className = 'issue-resources';
+                resources.innerHTML = `
+                    <div class="resource-count" onclick="showResourcePage('${issue.title}', 'read')">
+                        <span class="resource-text">Read</span>
+                        <span>${issue.resources.verses}</span>
                     </div>
-                    <div class="issue-resources">
-                        <div class="resource-count">
-                            <div class="book-icon"></div>
-                            <span>${issue.resources.verses}</span>
-                        </div>
-                        <div class="resource-count">
-                            <span class="resource-icon">🙏</span>
-                            <span>${issue.resources.prayers}</span>
-                        </div>
-                        <div class="resource-count">
-                            <span class="resource-icon">▷</span>
-                            <span>${issue.resources.videos}</span>
-                        </div>
-                        <button class="overcome-btn ${overcomeChallenges.has(issue.title) ? 'completed' : ''}" 
-                                onclick="event.stopPropagation(); toggleOvercome(event, '${issue.title}')">
-                            ${overcomeChallenges.has(issue.title) ? '✓' : '○'}
-                        </button>
+                    <div class="resource-count" onclick="showResourcePage('${issue.title}', 'pray')">
+                        <span class="resource-text">Pray</span>
+                        <span>${issue.resources.prayers}</span>
+                    </div>
+                    <div class="resource-count" onclick="showResourcePage('${issue.title}', 'watch')">
+                        <span class="resource-text">Watch</span>
+                        <span>${issue.resources.videos}</span>
                     </div>
                 `;
+                
+                issueDiv.appendChild(header);
+                issueDiv.appendChild(resources);
                 
                 container.appendChild(issueDiv);
             });
@@ -939,95 +1031,1075 @@
                         return bTotal - aTotal;
                     });
                     break;
-                case 'progress':
-                    filteredIssues.sort((a, b) => b.progress - a.progress);
-                    break;
             }
             
             renderIssues();
         }
 
-        function toggleOvercome(event, issueTitle) {
-            event.stopPropagation();
-            const btn = event.target.closest('.overcome-btn');
-            
-            if (overcomeChallenges.has(issueTitle)) {
-                overcomeChallenges.delete(issueTitle);
-                btn.classList.remove('completed');
-                btn.innerHTML = '○';
-            } else {
-                overcomeChallenges.add(issueTitle);
-                btn.classList.add('completed');
-                btn.innerHTML = '✓';
-            }
-        }
-
-        function toggleScriptureRead(index, issueTitle) {
-            if (scriptureData[issueTitle]) {
-                scriptureData[issueTitle][index].read = !scriptureData[issueTitle][index].read;
-                updateProgressCounter(issueTitle);
-            }
-        }
-
-        function updateProgressCounter(issueTitle) {
-            const scriptures = scriptureData[issueTitle] || [];
-            const readCount = scriptures.filter(s => s.read).length;
-            const totalCount = scriptures.length;
-            
-            const counterEl = document.querySelector('.progress-counter');
-            if (counterEl) {
-                counterEl.textContent = `${readCount}/${totalCount}`;
-            }
-        }
-
-        function showResourcePage(issueTitle) {
-            if (issueTitle === 'Anxiety') {
+        function showResourcePage(issueTitle, resourceType = 'read') {
+            if (issueTitle === 'Anxiety' && resourceType === 'read') {
+                pageHistory.push('scripture');
+                
                 const pages = document.querySelectorAll('.page');
                 pages.forEach(page => page.classList.remove('active'));
                 
-                const mainContainer = document.querySelector('.container');
-                if (!mainContainer) return;
+                let scripturePage = document.getElementById('scripture-page');
+                if (!scripturePage) {
+                    scripturePage = document.createElement('div');
+                    scripturePage.id = 'scripture-page';
+                    scripturePage.className = 'page';
+                    document.querySelector('.container').appendChild(scripturePage);
+                }
                 
                 const scriptures = scriptureData[issueTitle] || [];
-                let scriptureHTML = '';
+                let accordionHTML = '';
                 
                 scriptures.forEach((scripture, index) => {
-                    scriptureHTML += `
-                        <div class="scripture-tile">
-                            <div class="scripture-verse">"${scripture.verse}"</div>
-                            <div class="scripture-reference">- ${scripture.reference}</div>
-                            <div class="scripture-footer">
-                                <label class="read-checkbox">
-                                    <input type="checkbox" ${scripture.read ? 'checked' : ''} 
-                                           onchange="toggleScriptureRead(${index}, '${issueTitle}')">
-                                    <span>Read</span>
-                                </label>
+                    accordionHTML += `
+                        <div class="accordion-item">
+                            <div class="accordion-title" onclick="toggleAccordion(this)">
+                                <div class="accordion-title-text">${scripture.reference}</div>
+                                <span class="accordion-icon">▼</span>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="verse-text">"${scripture.verse}"</div>
                             </div>
                         </div>
                     `;
                 });
                 
-                const readCount = scriptures.filter(s => s.read).length;
-                
-                mainContainer.innerHTML = `
-                    <button class="back-btn" onclick="location.reload()">← Back</button>
-                    
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 1.5rem;">
-                        <h1 style="font-size: 1.8rem; color: #805E85; margin-bottom: 0.5rem; font-weight: 500; text-align: center;">Anxiety - Scripture</h1>
-                        <p style="color: #6c757d; font-size: 1rem; text-align: center;">Find peace through God's word</p>
-                        <div style="text-align: center; margin-top: 1rem;">
-                            <span class="progress-counter" style="color: #805E85; font-weight: 500;">${readCount}/${scriptures.length}</span>
+                scripturePage.innerHTML = `
+                    <div style="background: white; padding: 0.75rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 0.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <button onclick="goBack()" style="background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f4 100%); color: #805E85; border: none; border-left: 4px solid #805E85; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 8px rgba(128, 94, 133, 0.1); transition: all 0.3s ease;">← Back</button>
+                            <h1 style="font-size: 1.3rem; color: #805E85; margin: 0; font-weight: 500; text-align: center;">Anxiety - Scriptures</h1>
+                            <button onclick="openNotesModal('${issueTitle}')" id="notesBtn-${issueTitle}" style="background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f4 100%); color: #805E85; border: none; border-left: 4px solid #805E85; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 8px rgba(128, 94, 133, 0.1); transition: all 0.3s ease;">Notes</button>
                         </div>
                     </div>
 
-                    <div class="scripture-tiles">
-                        ${scriptureHTML}
+                    <div class="scripture-card">
+                        <div class="accordion">
+                            ${accordionHTML}
+                        </div>
+                    </div>
+
+                    <!-- Notes Modal -->
+                    <div id="notesModal" class="modal-overlay" onclick="closeNotesModal(event)">
+                        <div class="modal-content" onclick="event.stopPropagation()">
+                            <div class="modal-header">Add Your Notes</div>
+                            
+                            <!-- Previous Notes Wheel Picker -->
+                            <div id="previousNotesSection" style="display: none; margin-bottom: 1rem;">
+                                <div style="padding: 0.75rem; background: #674172; color: white; font-weight: 600; border-radius: 8px 8px 0 0; margin-bottom: 0;">Previous Notes</div>
+                                <div id="notesWheel">
+                                    <div id="wheelContainer" style="transition: transform 0.3s ease; position: relative; height: 100%; width: 100%;">
+                                    </div>
+                                    <!-- Center highlight overlay -->
+                                    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 60px; transform: translateY(-50%); background: rgba(103, 65, 114, 0.1); pointer-events: none; z-index: 10;"></div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center;">
+                                <button onclick="undoNote()" style="background: none; border: none; color: #674172; cursor: pointer; padding: 0.5rem; border-radius: 6px; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;" onmouseover="this.style.background='rgba(103, 65, 114, 0.1)'; this.style.color='#5a3862'" onmouseout="this.style.background='none'; this.style.color='#674172'" title="Undo">
+                                    <span style="font-size: 20px; font-weight: bold;">↶</span>
+                                </button>
+                                <button onclick="redoNote()" style="background: none; border: none; color: #674172; cursor: pointer; padding: 0.5rem; border-radius: 6px; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;" onmouseover="this.style.background='rgba(103, 65, 114, 0.1)'; this.style.color='#5a3862'" onmouseout="this.style.background='none'; this.style.color='#674172'" title="Redo">
+                                    <span style="font-size: 20px; font-weight: bold;">↷</span>
+                                </button>
+                                <div style="position: relative;">
+                                    <span onclick="toggleExportMenu()" style="color: #674172; cursor: pointer; font-size: 0.9rem; font-weight: 500; padding: 0.4rem 0.6rem; transition: all 0.2s ease;" onmouseover="this.style.color='#5a3862'" onmouseout="this.style.color='#674172'">Export</span>
+                                    <div id="exportMenu" style="display: none; position: absolute; top: 100%; left: 0; background: white; border: 1px solid #dee2e6; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; min-width: 120px; margin-top: 4px;">
+                                        <button onclick="exportNotes('txt')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057; border-radius: 6px 6px 0 0;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📄 Text (.txt)</button>
+                                        <button onclick="exportNotes('csv')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📊 CSV (.csv)</button>
+                                        <button onclick="exportNotes('json')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">🔧 JSON (.json)</button>
+                                        <button onclick="exportNotes('md')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📝 Markdown (.md)</button>
+                                        <button onclick="exportNotes('rtf')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057; border-radius: 0 0 6px 6px;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📋 Rich Text (.rtf)</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <textarea id="notesTextarea" class="notes-textarea" placeholder="Write your thoughts and reflections here..."></textarea>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="save-btn" onclick="saveNote()" style="flex: 1;">Save Note</button>
+                                <button onclick="closeNotesModal()" style="background: #6c757d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease;">Close</button>
+                            </div>
+                            <div class="confirmation-message" id="confirmationMessage">Note saved!</div>
+                        </div>
                     </div>
                 `;
+                
+                scripturePage.classList.add('active');
+                
+                // Update the notes button counter after the page is created
+                setTimeout(() => {
+                    updateNotesButton(issueTitle);
+                }, 50);
             } else {
-                alert('Opening resource page for: ' + issueTitle);
+                alert(`Opening ${resourceType} resources for: ${issueTitle}`);
+            }
+        }
+
+        function toggleAccordion(element) {
+            const item = element.parentElement;
+            const isActive = item.classList.contains('active');
+            const icon = element.querySelector('.accordion-icon');
+            
+            if (isActive) {
+                item.classList.remove('active');
+                if (icon) icon.textContent = '▼';
+            } else {
+                item.classList.add('active');
+                if (icon) icon.textContent = '▲';
+            }
+        }
+
+        function openNotesModal(issueTitle) {
+            currentIssueTitle = issueTitle;
+            const modal = document.getElementById('notesModal');
+            const textarea = document.getElementById('notesTextarea');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const modalHeader = document.querySelector('.modal-header');
+            const previousNotesSection = document.getElementById('previousNotesSection');
+            
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            
+            const existingNotes = notesStorage[issueTitle] || '';
+            
+            if (existingNotes.trim()) {
+                modalHeader.textContent = 'Add to Your Notes';
+                previousNotesSection.style.display = 'block';
+                textarea.placeholder = 'Add your new thoughts here...';
+                
+                setTimeout(() => {
+                    const noteEntries = parseNotesForAccordion(existingNotes);
+                    createNotesWheel(noteEntries);
+                }, 100);
+            } else {
+                modalHeader.textContent = 'Add Your Notes';
+                previousNotesSection.style.display = 'none';
+                textarea.placeholder = 'Write your thoughts and reflections here...';
+            }
+            
+            textarea.value = '';
+            undoStack = [textarea.value];
+            redoStack = [];
+            textarea.oninput = trackTextChange;
+            confirmationMessage.style.display = 'none';
+            
+            modal.style.display = 'block';
+            setTimeout(() => textarea.focus(), 150);
+        }
+
+        function parseNotesForAccordion(notesText) {
+            const entries = [];
+            const lines = notesText.split('\n');
+            let currentEntry = null;
+            let currentDate = '';
+            
+            for (let line of lines) {
+                if (line.startsWith('---') && line.endsWith('---')) {
+                    currentDate = line.replace(/---\s*/, '').replace(/\s*---/, '').trim();
+                    continue;
+                } else if (line.match(/^\[\d{1,2}:\d{2} [AP]M\]/)) {
+                    if (currentEntry) {
+                        entries.push(currentEntry);
+                    }
+                    const timestampMatch = line.match(/^\[([^\]]+)\]/);
+                    const timestamp = timestampMatch ? timestampMatch[1] : 'Unknown time';
+                    const content = line.replace(/^\[[^\]]+\]\s*/, '');
+                    currentEntry = { 
+                        timestamp, 
+                        content,
+                        date: currentDate || 'Unknown date'
+                    };
+                } else if (line.startsWith('─')) {
+                    if (currentEntry) {
+                        entries.push(currentEntry);
+                        currentEntry = null;
+                    }
+                } else if (line.trim() && currentEntry) {
+                    currentEntry.content += '\n' + line;
+                }
+            }
+            
+            if (currentEntry) {
+                entries.push(currentEntry);
+            }
+            
+            return entries;
+        }
+
+        function createNotesWheel(notes) {
+            const wheelContainer = document.getElementById('wheelContainer');
+            const notesWheel = document.getElementById('notesWheel');
+            
+            if (!wheelContainer || !notesWheel) return;
+            
+            wheelContainer.innerHTML = '';
+            wheelNotes = notes;
+            currentWheelIndex = 0;
+            wheelScrollPosition = 0;
+
+            if (notes.length === 0) return;
+
+            notes.forEach((note, index) => {
+                const noteCard = document.createElement('div');
+                noteCard.className = 'wheel-note-item';
+                noteCard.setAttribute('data-index', index);
+                
+                const timestampRow = document.createElement('div');
+                timestampRow.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 0.25rem;
+                    pointer-events: none;
+                `;
+                
+                const dateDiv = document.createElement('div');
+                dateDiv.style.cssText = `
+                    font-weight: normal;
+                    color: #6c757d;
+                    font-size: 0.75rem;
+                    pointer-events: none;
+                `;
+                dateDiv.textContent = note.date || 'Unknown date';
+                
+                const timeDiv = document.createElement('div');
+                timeDiv.style.cssText = `
+                    font-weight: normal;
+                    color: #6c757d;
+                    font-size: 0.75rem;
+                    pointer-events: none;
+                `;
+                timeDiv.textContent = note.timestamp;
+                
+                timestampRow.appendChild(dateDiv);
+                timestampRow.appendChild(timeDiv);
+                
+                const previewDiv = document.createElement('div');
+                previewDiv.style.cssText = `
+                    color: #6c757d;
+                    font-size: 0.8rem;
+                    line-height: 1.3;
+                    flex: 1;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    pointer-events: none;
+                `;
+                previewDiv.textContent = note.content;
+                
+                noteCard.appendChild(timestampRow);
+                noteCard.appendChild(previewDiv);
+                
+                noteCard.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    viewFullNote(note);
+                };
+                
+                wheelContainer.appendChild(noteCard);
+            });
+        }
+
+        function viewFullNote(note) {
+            showViewNoteModal(note);
+        }
+
+        function showViewNoteModal(note) {
+            const existingModal = document.getElementById('viewNoteModal');
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+
+            const modalDiv = document.createElement('div');
+            modalDiv.id = 'viewNoteModal';
+            modalDiv.className = 'modal-overlay';
+            modalDiv.style.cssText = `
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 2000;
+                backdrop-filter: blur(5px);
+            `;
+
+            modalDiv.innerHTML = `
+                <div class="modal-content" onclick="event.stopPropagation()">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #e9ecef; padding-bottom: 0.5rem;">
+                        <div style="margin: 0; font-size: 1.1rem; color: #805E85; font-weight: 600;">Your Note</div>
+                        <button onclick="closeViewNoteModal()" style="
+                            background: none;
+                            border: none;
+                            font-size: 1.5rem;
+                            color: #6c757d;
+                            cursor: pointer;
+                            padding: 0;
+                            width: 30px;
+                            height: 30px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 50%;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.background='#f8f9fa'; this.style.color='#343a40'" onmouseout="this.style.background='none'; this.style.color='#6c757d'">×</button>
+                    </div>
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                        padding: 0.5rem;
+                        background: #f8f9fa;
+                        border-radius: 6px;
+                        flex-shrink: 0;
+                    ">
+                        <span style="font-size: 0.8rem; color: #6c757d;">${note.date || 'Unknown date'}</span>
+                        <span style="font-size: 0.8rem; color: #6c757d;">${note.timestamp}</span>
+                    </div>
+                    <div style="
+                        flex: 1;
+                        overflow-y: auto;
+                        padding: 1rem;
+                        background: #f8f9fa;
+                        border-radius: 8px;
+                        font-family: inherit;
+                        font-size: 0.9rem;
+                        line-height: 1.5;
+                        white-space: pre-wrap;
+                        color: #2c3e50;
+                        word-wrap: break-word;
+                        margin-bottom: 1rem;
+                    ">${note.content}</div>
+                    <div style="text-align: center; flex-shrink: 0;">
+                        <button onclick="loadNoteForEditing('${note.timestamp.replace(/'/g, "\\'")}'); closeViewNoteModal();" style="
+                            background: #674172;
+                            color: white;
+                            border: none;
+                            padding: 0.5rem 1rem;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-size: 0.85rem;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.background='#5a3862'" onmouseout="this.style.background='#674172'">Edit This Note</button>
+                    </div>
+                </div>
+            `;
+
+            modalDiv.addEventListener('click', function(e) {
+                if (e.target === modalDiv) {
+                    closeViewNoteModal();
+                }
+            });
+
+            document.body.appendChild(modalDiv);
+        }
+
+        function updateNotesButton(issueTitle) {
+            const notesBtn = document.getElementById(`notesBtn-${issueTitle}`);
+            if (notesBtn) {
+                const notes = notesStorage[issueTitle] || '';
+                if (notes.trim()) {
+                    const noteCount = (notes.match(/\[\d{1,2}:\d{2} [AP]M\]/g) || []).length;
+                    notesBtn.textContent = `Notes (${noteCount})`;
+                } else {
+                    notesBtn.textContent = 'Notes';
+                }
+            }
+        }
+
+        function populateNotesPage() {
+            const notesPageContent = document.getElementById('notes');
+            if (!notesPageContent) return;
+            
+            // Get all saved notes
+            const allNotes = Object.keys(notesStorage).filter(key => notesStorage[key].trim());
+            
+            if (allNotes.length === 0) {
+                notesPageContent.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 1.5rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                        <h1 style="font-size: 1.8rem; color: #805E85; margin-bottom: 0.5rem; font-weight: 500;">Your Notes</h1>
+                        <p style="color: #6c757d; font-size: 1rem;">All your saved spiritual reflections and thoughts</p>
+                    </div>
+                    <div style="text-align: center; padding: 3rem; color: #6c757d;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;">📝</div>
+                        <h3>No notes yet</h3>
+                        <p>Start exploring spiritual topics and add your personal reflections!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let notesHTML = `
+                <div style="text-align: center; margin-bottom: 1.5rem; padding: 1.5rem; background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <h1 style="font-size: 1.8rem; color: #805E85; margin-bottom: 0.5rem; font-weight: 500;">Your Notes</h1>
+                    <p style="color: #6c757d; font-size: 1rem;">All your saved spiritual reflections and thoughts</p>
+                </div>
+            `;
+            
+            allNotes.forEach(issueTitle => {
+                const notes = notesStorage[issueTitle];
+                const noteEntries = parseNotesForAccordion(notes);
+                const noteCount = noteEntries.length;
+                
+                notesHTML += `
+                    <div class="scripture-card" style="margin-bottom: 1.5rem;">
+                        <div style="position: relative;">
+                            <h2 style="font-size: 1.5rem; color: #805E85; margin-bottom: 1rem; font-weight: 600; text-align: center; border-bottom: 2px solid #805E85; padding-bottom: 0.5rem;">${issueTitle}</h2>
+                            <button style="background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f4 100%); color: #805E85; border: none; border-left: 4px solid #805E85; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 8px rgba(128, 94, 133, 0.1); transition: all 0.3s ease; position: absolute; top: -1.3rem; right: 0.5rem; z-index: 20;" onclick="openNotesModalFromPage('${issueTitle}')" onmouseover="this.style.background='linear-gradient(135deg, #674172 0%, #5a3862 100%)'; this.style.color='white'" onmouseout="this.style.background='linear-gradient(135deg, #f8f9fa 0%, #f1f3f4 100%)'; this.style.color='#805E85'">Add Note</button>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <p style="color: #6c757d; margin-bottom: 1rem; text-align: center;">${noteCount} note${noteCount !== 1 ? 's' : ''} saved</p>
+                            <div style="display: grid; gap: 0.75rem;">
+                `;
+                
+                noteEntries.forEach(note => {
+                    notesHTML += `
+                        <div style="background: #f8f9fa; border-radius: 8px; padding: 1rem; border-left: 4px solid #805E85; cursor: pointer; transition: all 0.2s ease;" onclick="viewFullNoteFromPage('${note.timestamp.replace(/'/g, "\\'")}', '${issueTitle}')" onmouseover="this.style.background='rgba(128, 94, 133, 0.05)'" onmouseout="this.style.background='#f8f9fa'">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600; color: #805E85; font-size: 0.9rem; margin-left: 1rem;">${note.date}</span>
+                                <span style="color: #6c757d; font-size: 0.85rem;">${note.timestamp}</span>
+                            </div>
+                            <div style="color: #2c3e50; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">${note.content}</div>
+                        </div>
+                    `;
+                });
+                
+                notesHTML += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            notesPageContent.innerHTML = notesHTML;
+        }
+
+        function openNotesModalFromPage(issueTitle) {
+            currentIssueTitle = issueTitle;
+            
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('globalNotesModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'globalNotesModal';
+                modal.className = 'modal-overlay';
+                modal.innerHTML = `
+                    <div class="modal-content" onclick="event.stopPropagation()">
+                        <div class="modal-header">Add Your Notes</div>
+                        
+                        <!-- Previous Notes Wheel Picker -->
+                        <div id="globalPreviousNotesSection" style="display: none; margin-bottom: 1rem;">
+                            <div style="padding: 0.75rem; background: #674172; color: white; font-weight: 600; border-radius: 8px 8px 0 0; margin-bottom: 0;">Previous Notes</div>
+                            <div id="globalNotesWheel" style="height: 200px; max-height: 200px; overflow: hidden; overflow-y: auto; position: relative; background: #f8f9fa; border: 1px solid #e9ecef; border-top: none; border-radius: 0 0 8px 8px; cursor: pointer; touch-action: none; user-select: none;">
+                                <div id="globalWheelContainer" style="transition: transform 0.3s ease; position: relative; height: 100%; width: 100%;">
+                                </div>
+                                <!-- Center highlight overlay -->
+                                <div style="position: absolute; top: 50%; left: 0; right: 0; height: 60px; transform: translateY(-50%); background: rgba(103, 65, 114, 0.1); pointer-events: none; z-index: 10;"></div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center;">
+                            <button onclick="undoNoteGlobal()" style="background: none; border: none; color: #674172; cursor: pointer; padding: 0.5rem; border-radius: 6px; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;" onmouseover="this.style.background='rgba(103, 65, 114, 0.1)'; this.style.color='#5a3862'" onmouseout="this.style.background='none'; this.style.color='#674172'" title="Undo">
+                                <span style="font-size: 20px; font-weight: bold;">↶</span>
+                            </button>
+                            <button onclick="redoNoteGlobal()" style="background: none; border: none; color: #674172; cursor: pointer; padding: 0.5rem; border-radius: 6px; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;" onmouseover="this.style.background='rgba(103, 65, 114, 0.1)'; this.style.color='#5a3862'" onmouseout="this.style.background='none'; this.style.color='#674172'" title="Redo">
+                                <span style="font-size: 20px; font-weight: bold;">↷</span>
+                            </button>
+                            <div style="position: relative;">
+                                <span onclick="toggleGlobalExportMenu()" style="color: #674172; cursor: pointer; font-size: 0.9rem; font-weight: 500; padding: 0.4rem 0.6rem; transition: all 0.2s ease;" onmouseover="this.style.color='#5a3862'" onmouseout="this.style.color='#674172'">Export</span>
+                                <div id="globalExportMenu" style="display: none; position: absolute; top: 100%; left: 0; background: white; border: 1px solid #dee2e6; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; min-width: 120px; margin-top: 4px;">
+                                    <button onclick="exportNotesGlobal('txt')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057; border-radius: 6px 6px 0 0;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📄 Text (.txt)</button>
+                                    <button onclick="exportNotesGlobal('csv')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📊 CSV (.csv)</button>
+                                    <button onclick="exportNotesGlobal('json')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">🔧 JSON (.json)</button>
+                                    <button onclick="exportNotesGlobal('md')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📝 Markdown (.md)</button>
+                                    <button onclick="exportNotesGlobal('rtf')" style="width: 100%; padding: 0.5rem; background: none; border: none; text-align: left; cursor: pointer; font-size: 0.8rem; color: #495057; border-radius: 0 0 6px 6px;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='none'">📋 Rich Text (.rtf)</button>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea id="globalNotesTextarea" class="notes-textarea" placeholder="Write your thoughts and reflections here..."></textarea>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="save-btn" onclick="saveNoteGlobal()" style="flex: 1;">Save Note</button>
+                            <button onclick="closeGlobalNotesModal()" style="background: #6c757d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='#5a6268'" onmouseout="this.style.background='#6c757d'">Close</button>
+                        </div>
+                        <div class="confirmation-message" id="globalConfirmationMessage">Note saved!</div>
+                    </div>
+                `;
+                
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        closeGlobalNotesModal();
+                    }
+                });
+                
+                document.body.appendChild(modal);
+            }
+            
+            // Setup the modal for this issue
+            const modalHeader = modal.querySelector('.modal-header');
+            const textarea = modal.querySelector('#globalNotesTextarea');
+            const previousNotesSection = modal.querySelector('#globalPreviousNotesSection');
+            const confirmationMessage = modal.querySelector('#globalConfirmationMessage');
+            
+            modalHeader.textContent = `Add Notes - ${issueTitle}`;
+            
+            // Lock body scroll when modal opens
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            
+            const existingNotes = notesStorage[issueTitle] || '';
+            
+            if (existingNotes.trim()) {
+                previousNotesSection.style.display = 'block';
+                textarea.placeholder = 'Add your new thoughts here...';
+                
+                setTimeout(() => {
+                    const noteEntries = parseNotesForAccordion(existingNotes);
+                    createGlobalNotesWheel(noteEntries);
+                }, 100);
+            } else {
+                previousNotesSection.style.display = 'none';
+                textarea.placeholder = 'Write your thoughts and reflections here...';
+            }
+            
+            textarea.value = '';
+            confirmationMessage.style.display = 'none';
+            
+            modal.style.display = 'block';
+            setTimeout(() => textarea.focus(), 150);
+        }
+
+        function createGlobalNotesWheel(notes) {
+            const wheelContainer = document.getElementById('globalWheelContainer');
+            const notesWheel = document.getElementById('globalNotesWheel');
+            
+            if (!wheelContainer || !notesWheel) return;
+            
+            wheelContainer.innerHTML = '';
+            
+            if (notes.length === 0) return;
+
+            notes.forEach((note, index) => {
+                const noteCard = document.createElement('div');
+                noteCard.className = 'wheel-note-item';
+                
+                const timestampRow = document.createElement('div');
+                timestampRow.style.cssText = `
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 0.25rem;
+                    pointer-events: none;
+                `;
+                
+                const dateDiv = document.createElement('div');
+                dateDiv.style.cssText = `
+                    font-weight: normal;
+                    color: #6c757d;
+                    font-size: 0.75rem;
+                    pointer-events: none;
+                `;
+                dateDiv.textContent = note.date || 'Unknown date';
+                
+                const timeDiv = document.createElement('div');
+                timeDiv.style.cssText = `
+                    font-weight: normal;
+                    color: #6c757d;
+                    font-size: 0.75rem;
+                    pointer-events: none;
+                `;
+                timeDiv.textContent = note.timestamp;
+                
+                timestampRow.appendChild(dateDiv);
+                timestampRow.appendChild(timeDiv);
+                
+                const previewDiv = document.createElement('div');
+                previewDiv.style.cssText = `
+                    color: #6c757d;
+                    font-size: 0.8rem;
+                    line-height: 1.3;
+                    flex: 1;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    pointer-events: none;
+                `;
+                previewDiv.textContent = note.content;
+                
+                noteCard.appendChild(timestampRow);
+                noteCard.appendChild(previewDiv);
+                
+                noteCard.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    viewFullNote(note);
+                };
+                
+                wheelContainer.appendChild(noteCard);
+            });
+        }
+
+        function closeGlobalNotesModal() {
+            const modal = document.getElementById('globalNotesModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+            }
+        }
+
+        function saveNoteGlobal() {
+            const textarea = document.getElementById('globalNotesTextarea');
+            const confirmationMessage = document.getElementById('globalConfirmationMessage');
+            const saveBtn = document.querySelector('#globalNotesModal .save-btn');
+            
+            let noteContent = textarea.value.trim();
+            
+            if (!noteContent) {
+                confirmationMessage.textContent = 'Please enter some text before saving';
+                confirmationMessage.style.color = '#dc3545';
+                confirmationMessage.style.display = 'block';
+                setTimeout(() => {
+                    confirmationMessage.style.display = 'none';
+                    confirmationMessage.style.color = '#28a745';
+                    confirmationMessage.textContent = 'Note saved!';
+                }, 2000);
+                return;
+            }
+            
+            const now = new Date();
+            const today = now.toDateString();
+            const timeStamp = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            const existingNotes = notesStorage[currentIssueTitle] || '';
+            const todayExists = existingNotes && existingNotes.includes(today);
+            
+            let finalContent;
+            if (!existingNotes) {
+                finalContent = `--- ${today} ---\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}`;
+            } else if (todayExists) {
+                const dateHeader = `--- ${today} ---`;
+                const dateIndex = existingNotes.indexOf(dateHeader);
+                if (dateIndex !== -1) {
+                    const beforeDate = existingNotes.substring(0, dateIndex);
+                    const afterDateHeader = existingNotes.substring(dateIndex + dateHeader.length + 1);
+                    finalContent = beforeDate + dateHeader + `\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}\n` + afterDateHeader;
+                } else {
+                    finalContent = `--- ${today} ---\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}\n` + existingNotes;
+                }
+            } else {
+                finalContent = `--- ${today} ---\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}\n` + existingNotes;
+            }
+            
+            notesStorage[currentIssueTitle] = finalContent;
+            
+            // Show confirmation message
+            confirmationMessage.style.display = 'block';
+            confirmationMessage.style.color = '#28a745';
+            confirmationMessage.textContent = 'Note saved!';
+            saveBtn.style.background = '#28a745';
+            saveBtn.textContent = 'Saved!';
+            
+            // Clear the textarea after successful save
+            textarea.value = '';
+            
+            // Refresh the wheel and notes page
+            const noteEntries = parseNotesForAccordion(finalContent);
+            const previousNotesSection = document.getElementById('globalPreviousNotesSection');
+            
+            if (noteEntries.length > 0) {
+                previousNotesSection.style.display = 'block';
+                setTimeout(() => {
+                    createGlobalNotesWheel(noteEntries);
+                }, 100);
+            }
+            
+            // Refresh the notes page if we're on it
+            if (document.getElementById('notes').classList.contains('active')) {
+                populateNotesPage();
+            }
+            
+            // Reset button state after 2 seconds
+            setTimeout(() => {
+                saveBtn.style.background = '#674172';
+                saveBtn.textContent = 'Save Note';
+                confirmationMessage.style.display = 'none';
+            }, 2000);
+        }
+
+        function undoNoteGlobal() {
+            const textarea = document.getElementById('globalNotesTextarea');
+            // Basic undo functionality for global modal
+            console.log('Global undo clicked');
+        }
+
+        function redoNoteGlobal() {
+            const textarea = document.getElementById('globalNotesTextarea');
+            // Basic redo functionality for global modal
+            console.log('Global redo clicked');
+        }
+
+        function toggleGlobalExportMenu() {
+            const menu = document.getElementById('globalExportMenu');
+            if (menu) {
+                menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+
+        function exportNotesGlobal(format) {
+            const notes = notesStorage[currentIssueTitle] || '';
+            
+            if (!notes.trim()) {
+                alert('No notes to export for this topic.');
+                return;
+            }
+
+            const fileName = `${currentIssueTitle}_Notes`;
+            let content = '';
+            let mimeType = '';
+            let extension = '';
+
+            switch (format) {
+                case 'txt':
+                    content = notes;
+                    mimeType = 'text/plain';
+                    extension = 'txt';
+                    break;
+                case 'csv':
+                    content = convertToCSV(notes);
+                    mimeType = 'text/csv';
+                    extension = 'csv';
+                    break;
+                case 'json':
+                    content = convertToJSON(notes);
+                    mimeType = 'application/json';
+                    extension = 'json';
+                    break;
+                case 'md':
+                    content = convertToMarkdown(notes);
+                    mimeType = 'text/markdown';
+                    extension = 'md';
+                    break;
+                case 'rtf':
+                    content = convertToRTF(notes);
+                    mimeType = 'application/rtf';
+                    extension = 'rtf';
+                    break;
+            }
+
+            downloadFile(content, `${fileName}.${extension}`, mimeType);
+            
+            const menu = document.getElementById('globalExportMenu');
+            if (menu) {
+                menu.style.display = 'none';
+            }
+        }
+
+        function viewFullNoteFromPage(timestamp, issueTitle) {
+            const noteEntries = parseNotesForAccordion(notesStorage[issueTitle] || '');
+            const note = noteEntries.find(n => n.timestamp === timestamp);
+            
+            if (note) {
+                showViewNoteModal(note);
+            }
+        }
+
+        function closeViewNoteModal() {
+            const modal = document.getElementById('viewNoteModal');
+            if (modal) {
+                modal.remove();
+            }
+            
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+
+        function loadNoteForEditing(timestamp) {
+            const noteEntries = parseNotesForAccordion(notesStorage[currentIssueTitle] || '');
+            const noteToEdit = noteEntries.find(n => n.timestamp === timestamp);
+            
+            if (noteToEdit) {
+                const textarea = document.getElementById('notesTextarea');
+                if (textarea) {
+                    textarea.value = noteToEdit.content;
+                    textarea.focus();
+                    
+                    undoStack = [noteToEdit.content];
+                    redoStack = [];
+                    
+                    const confirmationMessage = document.getElementById('confirmationMessage');
+                    if (confirmationMessage) {
+                        confirmationMessage.textContent = `Loaded note for editing`;
+                        confirmationMessage.style.color = '#674172';
+                        confirmationMessage.style.display = 'block';
+                        setTimeout(() => {
+                            confirmationMessage.style.display = 'none';
+                            confirmationMessage.style.color = '#28a745';
+                            confirmationMessage.textContent = 'Note saved!';
+                        }, 2000);
+                    }
+                }
+            }
+        }
+
+        function trackTextChange() {
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea) {
+                const currentValue = textarea.value;
+                if (undoStack.length === 0 || undoStack[undoStack.length - 1] !== currentValue) {
+                    undoStack.push(currentValue);
+                    redoStack = [];
+                    if (undoStack.length > 50) {
+                        undoStack.shift();
+                    }
+                }
+            }
+        }
+
+        function toggleExportMenu() {
+            const menu = document.getElementById('exportMenu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function exportNotes(format) {
+            const notes = notesStorage[currentIssueTitle] || '';
+            
+            if (!notes.trim()) {
+                alert('No notes to export for this topic.');
+                return;
+            }
+
+            const fileName = `${currentIssueTitle}_Notes`;
+            let content = '';
+            let mimeType = '';
+            let extension = '';
+
+            switch (format) {
+                case 'txt':
+                    content = notes;
+                    mimeType = 'text/plain';
+                    extension = 'txt';
+                    break;
+                case 'csv':
+                    content = convertToCSV(notes);
+                    mimeType = 'text/csv';
+                    extension = 'csv';
+                    break;
+                case 'json':
+                    content = convertToJSON(notes);
+                    mimeType = 'application/json';
+                    extension = 'json';
+                    break;
+                case 'md':
+                    content = convertToMarkdown(notes);
+                    mimeType = 'text/markdown';
+                    extension = 'md';
+                    break;
+                case 'rtf':
+                    content = convertToRTF(notes);
+                    mimeType = 'application/rtf';
+                    extension = 'rtf';
+                    break;
+            }
+
+            downloadFile(content, `${fileName}.${extension}`, mimeType);
+            
+            document.getElementById('exportMenu').style.display = 'none';
+        }
+
+        function convertToCSV(notes) {
+            const entries = parseNotesForAccordion(notes);
+            let csv = 'Date,Time,Content\n';
+            
+            entries.forEach(entry => {
+                const content = entry.content.replace(/"/g, '""');
+                csv += `"${entry.date}","${entry.timestamp}","${content}"\n`;
+            });
+            
+            return csv;
+        }
+
+        function convertToJSON(notes) {
+            const entries = parseNotesForAccordion(notes);
+            const jsonData = {
+                topic: currentIssueTitle,
+                exportDate: new Date().toISOString(),
+                notes: entries
+            };
+            
+            return JSON.stringify(jsonData, null, 2);
+        }
+
+        function convertToMarkdown(notes) {
+            const entries = parseNotesForAccordion(notes);
+            let markdown = `# ${currentIssueTitle} - Personal Notes\n\n`;
+            markdown += `*Exported on ${new Date().toLocaleDateString()}*\n\n`;
+            
+            let currentDate = '';
+            entries.forEach(entry => {
+                if (entry.date !== currentDate) {
+                    currentDate = entry.date;
+                    markdown += `## ${currentDate}\n\n`;
+                }
+                
+                markdown += `### ${entry.timestamp}\n\n`;
+                markdown += `${entry.content}\n\n---\n\n`;
+            });
+            
+            return markdown;
+        }
+
+        function convertToRTF(notes) {
+            const entries = parseNotesForAccordion(notes);
+            let rtf = '{\\rtf1\\ansi\\deff0 {\\fonttbl {\\f0 Times New Roman;}}';
+            rtf += `\\f0\\fs24 ${currentIssueTitle} - Personal Notes\\par\\par`;
+            rtf += `\\i Exported on ${new Date().toLocaleDateString()}\\i0\\par\\par`;
+            
+            let currentDate = '';
+            entries.forEach(entry => {
+                if (entry.date !== currentDate) {
+                    currentDate = entry.date;
+                    rtf += `\\b ${entry.date}\\b0\\par\\par`;
+                }
+                
+                rtf += `\\b ${entry.timestamp}\\b0\\par`;
+                rtf += `${entry.content.replace(/\n/g, '\\par ')}\\par\\par`;
+            });
+            
+            rtf += '}';
+            return rtf;
+        }
+
+        function downloadFile(content, fileName, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function closeNotesModal(event) {
+            if (!event || event.target === event.currentTarget) {
+                const modal = document.getElementById('notesModal');
+                modal.style.display = 'none';
+                
+                document.body.style.overflow = '';
+                document.body.style.position = '';
+                document.body.style.width = '';
+            }
+        }
+
+        function saveNote() {
+            const textarea = document.getElementById('notesTextarea');
+            const confirmationMessage = document.getElementById('confirmationMessage');
+            const saveBtn = document.querySelector('.save-btn');
+            
+            let noteContent = textarea.value.trim();
+            
+            if (!noteContent) {
+                confirmationMessage.textContent = 'Please enter some text before saving';
+                confirmationMessage.style.color = '#dc3545';
+                confirmationMessage.style.display = 'block';
+                setTimeout(() => {
+                    confirmationMessage.style.display = 'none';
+                    confirmationMessage.style.color = '#28a745';
+                    confirmationMessage.textContent = 'Note saved!';
+                }, 2000);
+                return;
+            }
+            
+            const now = new Date();
+            const today = now.toDateString();
+            const timeStamp = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            const existingNotes = notesStorage[currentIssueTitle] || '';
+            const todayExists = existingNotes && existingNotes.includes(today);
+            
+            let finalContent;
+            if (!existingNotes) {
+                finalContent = `--- ${today} ---\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}`;
+            } else if (todayExists) {
+                const dateHeader = `--- ${today} ---`;
+                const dateIndex = existingNotes.indexOf(dateHeader);
+                if (dateIndex !== -1) {
+                    const beforeDate = existingNotes.substring(0, dateIndex);
+                    const afterDateHeader = existingNotes.substring(dateIndex + dateHeader.length + 1);
+                    finalContent = beforeDate + dateHeader + `\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}\n` + afterDateHeader;
+                } else {
+                    finalContent = `--- ${today} ---\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}\n` + existingNotes;
+                }
+            } else {
+                finalContent = `--- ${today} ---\n[${timeStamp}] ${noteContent}\n${'─'.repeat(30)}\n` + existingNotes;
+            }
+            
+            notesStorage[currentIssueTitle] = finalContent;
+            
+            // Update the notes button counter
+            updateNotesButton(currentIssueTitle);
+            
+            confirmationMessage.style.display = 'block';
+            confirmationMessage.style.color = '#28a745';
+            confirmationMessage.textContent = 'Note saved!';
+            saveBtn.style.background = '#28a745';
+            saveBtn.textContent = 'Saved!';
+            
+            textarea.value = '';
+            
+            // Immediately refresh the notes display
+            const modalHeader = document.querySelector('.modal-header');
+            const previousNotesSection = document.getElementById('previousNotesSection');
+            
+            modalHeader.textContent = 'Add to Your Notes';
+            previousNotesSection.style.display = 'block';
+            
+            // Refresh the wheel with updated notes
+            const noteEntries = parseNotesForAccordion(finalContent);
+            createNotesWheel(noteEntries);
+            
+            setTimeout(() => {
+                saveBtn.style.background = '#674172';
+                saveBtn.textContent = 'Save Note';
+                confirmationMessage.style.display = 'none';
+            }, 2000);
+        }
+
+        function undoNote() {
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea && undoStack.length > 1) {
+                redoStack.push(undoStack.pop());
+                textarea.value = undoStack[undoStack.length - 1] || '';
+            }
+        }
+
+        function redoNote() {
+            const textarea = document.getElementById('notesTextarea');
+            if (textarea && redoStack.length > 0) {
+                const redoValue = redoStack.pop();
+                undoStack.push(redoValue);
+                textarea.value = redoValue;
             }
         }
     </script>
+
+
 </body>
-</html> --
+</html>
+
