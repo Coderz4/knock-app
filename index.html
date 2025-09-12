@@ -1048,6 +1048,56 @@ mount();
   document.addEventListener('touchend', onTouchEnd, {passive:true});
   document.addEventListener('touchcancel', onTouchEnd, {passive:true});
 })();
+
+/* Swipe-to-go-back: cross-device simple detector (swipe right to go back) */
+(function(){
+  let startX=0, startY=0, startTime=0, tracking=false;
+  const minDist = 50; // minimum horizontal swipe distance in px
+  const maxYDelta = 80; // allow some vertical movement
+  function shouldIgnore(e){
+    const el = e.target || e.srcElement;
+    if(!el) return false;
+    try{
+      if(el.closest && el.closest('input, textarea, button, .note-editor')) return true;
+    }catch(err){}
+    if(typeof modalRoot !== 'undefined' && modalRoot && modalRoot.children && modalRoot.children.length) return true; // don't swipe when modal open
+    return false;
+  }
+  function onStart(e){
+    if(shouldIgnore(e)) return;
+    tracking = true;
+    startTime = Date.now();
+    if(e.touches && e.touches[0]){
+      startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    }else{
+      startX = e.clientX; startY = e.clientY;
+    }
+  }
+  function onEnd(e){
+    if(!tracking) return; tracking = false;
+    let endX=0, endY=0;
+    if(e.changedTouches && e.changedTouches[0]){ endX = e.changedTouches[0].clientX; endY = e.changedTouches[0].clientY; }
+    else { endX = e.clientX; endY = e.clientY; }
+    const dx = endX - startX; const dy = Math.abs(endY - startY);
+    if(dx > minDist && dy < Math.max(30, Math.min(maxYDelta, Math.abs(dx)*0.6))){
+      // avoid clashing with OS edge-swipe: require swipe start not extremely close to left edge
+      if(startX <= 20) return;
+      try{
+        if(typeof state !== 'undefined'){
+          if(state.view === 'verses') state.view = 'categories';
+          else if(state.view === 'categories') state.view = 'home';
+          else if(state.view === 'notes' || state.view === 'favorites') state.view = 'home';
+          else return;
+          mount();
+        }
+      }catch(err){}
+    }
+  }
+  document.addEventListener('touchstart', onStart, {passive:true});
+  document.addEventListener('touchend', onEnd, {passive:true});
+  document.addEventListener('pointerdown', onStart, {passive:true});
+  document.addEventListener('pointerup', onEnd, {passive:true});
+})();
 </script>
 </body>
 </html>
