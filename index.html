@@ -485,17 +485,8 @@
   .letter-card{ padding:6px 8px; min-height:80px; font-size:24px; }
   .panel{ padding:18px; }
 }
-
-  /* Prevent long-press selection/scroll jitter on touch devices */
-html, body { overscroll-behavior-y: contain; } /* contain scroll chaining */
-.letter-card, .cat-item, .verse-item, .btn {
-  -webkit-user-select: none; /* no text selection on long-press */
-  user-select: none;
-  -webkit-touch-callout: none; /* iOS: no callout menu */
-  -webkit-tap-highlight-color: transparent; /* remove tap highlight */
-  touch-action: manipulation; /* prefer taps, reduce accidental drag */
-}
-
+/* Prevent overscroll chaining (stop the page moving when interacting with tiles) */
+html, body { overscroll-behavior: none; -webkit-overflow-scrolling: touch; }
 </style>
 </head>
 <body>
@@ -1025,6 +1016,24 @@ document.getElementById('btn-favs').onclick=()=>{
 // init
 load();
 mount();
+
+/* Prevent page dragging when touching interactive tiles on mobile */
+(function(){
+  const preventHandler = function(e){ e.preventDefault(); };
+  function onTouchStart(e){
+    try{
+      if(e.target && e.target.closest && e.target.closest('.letter-card, .cat-item, .verse-item, .btn')){
+        document.addEventListener('touchmove', preventHandler, {passive:false});
+      }
+    }catch(err){}
+  }
+  function onTouchEnd(){
+    document.removeEventListener('touchmove', preventHandler, {passive:false});
+  }
+  document.addEventListener('touchstart', onTouchStart, {passive:true});
+  document.addEventListener('touchend', onTouchEnd, {passive:true});
+  document.addEventListener('touchcancel', onTouchEnd, {passive:true});
+})();
 </script>
 </body>
 </html>
