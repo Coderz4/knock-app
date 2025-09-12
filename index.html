@@ -141,20 +141,21 @@
   .letter-card{
     background:var(--gradient-card);
     border:1px solid var(--border);
-    padding:16px 12px;
+    padding:6px 12px; /* reduce vertical padding so the letter is more prominent */
     border-radius:12px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:600;
+    font-weight:700;
     color:var(--text-primary);
     cursor:pointer;
-    min-height:64px;
+    min-height:72px; /* slightly taller for better tap target */
     box-shadow:var(--shadow);
-    font-size:18px;
+    font-size:22px; /* larger letter size for visibility */
     transition:all 0.2s ease;
     position:relative;
     overflow:hidden;
+    line-height:1; /* tighten vertical spacing so letter centers cleanly */
   }
   
   .letter-card::before{
@@ -476,6 +477,13 @@
   .letters-grid{ grid-template-columns: repeat(4,1fr); gap:14px; }
   .letters-grid .letter-card{ min-height:74px; font-size:20px; }
   main{ max-width:980px; padding-left:16px; padding-right:16px; }
+}
+
+/* Mobile-specific: prefer wider, larger letter tiles on narrow screens */
+@media (max-width: 479px){
+  .letters-grid{ grid-template-columns: repeat(4, 1fr); gap:12px; }
+  .letter-card{ padding:6px 8px; min-height:80px; font-size:24px; }
+  .panel{ padding:18px; }
 }
 </style>
 </head>
