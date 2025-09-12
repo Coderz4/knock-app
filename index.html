@@ -505,20 +505,40 @@ main, .panel {
   .panel-header > div:first-child .panel-title { flex: 1; text-align: center; margin: 0; }
   .panel-header > div:first-child .btn { margin-right: auto; }
 }
-
-  /* Center header title on very narrow phones; keep back button left */
+/* On very narrow phones: center title, keep back button left, and hide the redundant helper text */
 @media (max-width: 420px){
   .panel-header{
     position:relative;
     display:flex;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start; /* keep layout flow left-aligned */
     padding-top:12px;
     padding-bottom:12px;
     gap:8px;
   }
-
-  
+  /* keep the back button visually on the left */
+  .panel-header .btn{
+    position:absolute;
+    left:12px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:3;
+  }
+  /* align the title to the right side of the panel on narrow screens */
+  .panel-header .panel-title{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    margin:0;
+    text-align:right;
+    font-size:18px;
+    line-height:1.05;
+    z-index:2;
+  }
+  /* remove the redundant helper subtitle */
+  .panel-header > .small{ display:none; }
+}
 </style>
 </head>
 <body>
