@@ -471,21 +471,12 @@
     gap: 16px;
   }
 }
-  /* Prefer wider tiles on large phones / foldables: 2 columns between ~480px and 1023px */
+/* Prefer wider letter tiles on mid-width phones/foldables (2-4 columns) */
 @media (min-width: 480px) and (max-width: 1023px){
-  .grid-list{
-    grid-template-columns: repeat(2, 1fr); /* 2 wider columns */
-    gap: 14px;
-  }
-  /* allow panels to use more horizontal space on these devices */
-  main{
-    padding-left:16px;
-    padding-right:16px;
-    max-width: 960px;
-  }
-  .panel{ padding:20px; }
+  .letters-grid{ grid-template-columns: repeat(4,1fr); gap:14px; }
+  .letters-grid .letter-card{ min-height:74px; font-size:20px; }
+  main{ max-width:980px; padding-left:16px; padding-right:16px; }
 }
-
 </style>
 </head>
 <body>
