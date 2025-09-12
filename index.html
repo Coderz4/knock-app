@@ -501,6 +501,26 @@ main, .panel {
 .letters-grid, .grid-list, .list, .panel { min-width: 0; }
 .letter-card, .cat-item, .verse-item { min-width: 0; }
 
+  /* Stack panel header on narrow viewports so title and helper text have room */
+@media (max-width: 640px){
+  .panel-header{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .panel-header > div:first-child{ /* keeps the back+title group aligned */
+    width:100%;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+  .panel-header .small{ /* the helper text on the right becomes its own row */
+    margin:0;
+    opacity:0.9;
+  }
+}
+
+  
 </style>
 </head>
 <body>
