@@ -29,13 +29,7 @@
     --gradient:linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
     --gradient-card:linear-gradient(145deg, var(--card-bg) 0%, rgba(49,42,69,0.8) 100%);
   }
-
-  {
-  --tile-min:56px;   /* smallest the tile will be on tiny screens */
-  --tile-pref:96px;  /* preferred size (used on most phones) */
-  --tile-max:120px;  /* upper bound on very large viewports */
-}
-
+  
   *{box-sizing:border-box}
   
   body{
@@ -167,29 +161,7 @@
   position:relative;
   overflow:hidden;
   line-height:1;
-    width: clamp(var(--tile-min), 12vw, var(--tile-pref));
-  aspect-ratio: 1 / 1;
-  padding:0 !important;
-  min-height:0 !important;
-  font-size: clamp(16px, 3.5vw, 22px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
-
-/* Desktop / larger screens */
-@media (min-width:720px){
-  .letter-card{ width: var(--tile-pref); font-size:18px; }
-}
-@media (min-width:1024px){
-  .letter-card{ width: var(--tile-pref); font-size:20px; }
-}
-
-/* Very narrow phones fallback */
-@media (max-width:360px){
-  .letter-card{ width: clamp(var(--tile-min), 14vw, 82px); font-size:16px; }
-}
-
 
   
   .letter-card::before{
@@ -690,13 +662,6 @@ main{
   justify-content:center;
 }
 
-  /* Force-size test — put last in your CSS, then redeploy */
-.letter-card{
-  width: clamp(var(--tile-min,56px), 12vw, var(--tile-pref,96px)) !important;
-  aspect-ratio: 1 / 1 !important;
-  font-size: clamp(16px, 3.5vw, 22px) !important;
-}
-
 </style>
 </head>
 <body>
@@ -864,9 +829,6 @@ panel.querySelector('#back').onclick=()=>{
         <div>
           <div style="font-weight:600;font-size:16px;color:var(--text-primary);margin-bottom:4px">${c.name}</div>
           <div class="small">${c.description||'No description'}</div>
-        </div>
-        <div class="small" style="background:var(--accent);color:#fff;padding:4px 8px;border-radius:12px;font-weight:500">
-          ${verseCount} verse${verseCount !== 1 ? 's' : ''}
         </div>
       </div>
     `;
