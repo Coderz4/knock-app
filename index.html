@@ -29,7 +29,13 @@
     --gradient:linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
     --gradient-card:linear-gradient(145deg, var(--card-bg) 0%, rgba(49,42,69,0.8) 100%);
   }
-  
+
+  {
+  --tile-min:56px;   /* smallest the tile will be on tiny screens */
+  --tile-pref:96px;  /* preferred size (used on most phones) */
+  --tile-max:120px;  /* upper bound on very large viewports */
+}
+
   *{box-sizing:border-box}
   
   body{
@@ -161,7 +167,29 @@
   position:relative;
   overflow:hidden;
   line-height:1;
+    width: clamp(var(--tile-min), 12vw, var(--tile-pref));
+  aspect-ratio: 1 / 1;
+  padding:0 !important;
+  min-height:0 !important;
+  font-size: clamp(16px, 3.5vw, 22px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
+/* Desktop / larger screens */
+@media (min-width:720px){
+  .letter-card{ width: var(--tile-pref); font-size:18px; }
+}
+@media (min-width:1024px){
+  .letter-card{ width: var(--tile-pref); font-size:20px; }
+}
+
+/* Very narrow phones fallback */
+@media (max-width:360px){
+  .letter-card{ width: clamp(var(--tile-min), 14vw, 82px); font-size:16px; }
+}
+
 
   
   .letter-card::before{
