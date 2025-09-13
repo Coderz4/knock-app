@@ -690,6 +690,13 @@ main{
   justify-content:center;
 }
 
+  /* Force-size test — put last in your CSS, then redeploy */
+.letter-card{
+  width: clamp(var(--tile-min,56px), 12vw, var(--tile-pref,96px)) !important;
+  aspect-ratio: 1 / 1 !important;
+  font-size: clamp(16px, 3.5vw, 22px) !important;
+}
+
 </style>
 </head>
 <body>
