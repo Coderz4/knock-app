@@ -19,6 +19,8 @@
     --text-primary:#e8e6eb;
     --text-secondary:#b8b3c4;
     --text-muted:#8a8291;
+/* add inside :root */
+    --tile-size: 64px;
     --border:#3d3650;
     --border-light:#4a445c;
     --shadow:0 8px 32px rgba(0,0,0,0.3);
@@ -117,13 +119,17 @@
     margin:0 auto;
     min-height:calc(100vh - 80px);
   }
-  
-  .letters-grid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    gap:12px;
-    margin-top:16px;
-  }
+.letters-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
+  justify-items: center;    /* center each tile in its column */
+  column-gap: 8px;          /* tighten horizontal spacing */
+  row-gap: 10px;            /* vertical spacing */
+  margin-top:16px;
+  width:100%;
+  max-width:100%;
+}
+
   
   @media(min-width:720px){
     .letters-grid{
@@ -139,24 +145,24 @@
   }
   
   .letter-card{
-    background:var(--gradient-card);
-    border:1px solid var(--border);
-    padding:6px 12px; /* reduce vertical padding so the letter is more prominent */
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-    color:var(--text-primary);
-    cursor:pointer;
-    min-height:72px; /* slightly taller for better tap target */
-    box-shadow:var(--shadow);
-    font-size:22px; /* larger letter size for visibility */
-    transition:all 0.2s ease;
-    position:relative;
-    overflow:hidden;
-    line-height:1; /* tighten vertical spacing so letter centers cleanly */
-  }
+  width: var(--tile-size);
+  height: var(--tile-size);
+  padding: 0;               /* remove internal vertical padding */
+  border-radius: 50%;       /* make circular */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--text-primary);
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  font-size:18px;           /* tweak as needed */
+  transition:all 0.2s ease;
+  position:relative;
+  overflow:hidden;
+  line-height:1;
+}
+
   
   .letter-card::before{
     content:'';
