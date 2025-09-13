@@ -551,46 +551,6 @@ main, .panel {
   justify-content:center;
   font-size:16px;
 }
-
-/* Tighten circular letter spacing and sizing overrides (added to improve packing) */
-:root{ --tile-size:60px; }
-.letters-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), var(--tile-size)));
-  justify-content:center;
-  column-gap:8px;
-  row-gap:10px;
-  margin-top:16px;
-  width:100%;
-  max-width:100%;
-}
-.letter-card{
-  width:var(--tile-size);
-  height:var(--tile-size);
-  padding:0;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  color:var(--text-primary);
-  cursor:pointer;
-  box-shadow:var(--shadow);
-  font-size:16px;
-  transition:all 0.18s ease;
-  position:relative;
-  overflow:hidden;
-  line-height:1;
-}
-.letter-card::before{ left:-100%; width:100%; }
-@media (min-width:720px){
-  :root{ --tile-size:64px; }
-  .letters-grid{ column-gap:10px; row-gap:12px; }
-}
-@media (min-width:1024px){
-  :root{ --tile-size:72px; }
-  .letters-grid{ column-gap:12px; row-gap:14px; }
-}
 </style>
 </head>
 <body>
