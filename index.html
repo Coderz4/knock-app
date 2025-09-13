@@ -20,7 +20,7 @@
     --text-secondary:#b8b3c4;
     --text-muted:#8a8291;
 /* add inside :root */
-    --tile-size: 66px;
+    --tile-size: 64px;
     --border:#3d3650;
     --border-light:#4a445c;
     --shadow:0 8px 32px rgba(0,0,0,0.3);
@@ -119,39 +119,30 @@
     margin:0 auto;
     min-height:calc(100vh - 80px);
   }
-
 .letters-grid{
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
-  justify-items:center;
-  column-gap:6px; /* tightened from 8–16 */
-  row-gap:8px;    /* tightened from 10–16 */
-  margin-top:12px;
+  justify-items: center;    /* center each tile in its column */
+  column-gap: 8px;          /* tighten horizontal spacing */
+  row-gap: 10px;            /* vertical spacing */
+  margin-top:16px;
   width:100%;
   max-width:100%;
 }
 
-/* mid / desktop breakpoints */
-@media(min-width:720px){
-  .letters-grid{
-    grid-template-columns:repeat(8,1fr);
-    gap:10px; /* tightened */
+  
+  @media(min-width:720px){
+    .letters-grid{
+      grid-template-columns:repeat(8,1fr);
+      gap:16px;
+    }
   }
-}
-@media(min-width:1024px){
-  .letters-grid{
-    grid-template-columns:repeat(10,1fr);
-    gap:12px;
+  
+  @media(min-width:1024px){
+    .letters-grid{
+      grid-template-columns:repeat(10,1fr);
+    }
   }
-}
-@media (min-width: 480px) and (max-width: 1023px){
-  .letters-grid{ grid-template-columns: repeat(4,1fr); gap:10px; }
-  .letters-grid .letter-card{ min-height:72px; font-size:18px; }
-}
-@media (max-width: 479px){
-  .letters-grid{ grid-template-columns: repeat(4, 1fr); gap:8px; }
-  .letter-card{ min-height:74px; font-size:22px; }
-}
   
   .letter-card{
   width: var(--tile-size);
@@ -599,6 +590,65 @@ main, .panel {
   white-space:nowrap;
 }
 
+
+/* Responsive tile sizing (fluid, works across devices including foldables) */
+:root{ --tile-min:48px; --tile-pref:72px; --tile-max:88px; }
+
+/* Grid: auto-fit with a fluid min size so columns reflow to fit available width */
+.letters-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(var(--tile-min), 8vw, var(--tile-pref)), 1fr));
+  gap:8px;
+  justify-items:center;
+  width:100%;
+  padding:8px 0;
+  box-sizing:border-box;
+}
+
+/* Circular tiles driven by width; aspect-ratio keeps them true circles */
+.letter-card{
+  width: clamp(var(--tile-min), 9vw, var(--tile-pref));
+  aspect-ratio: 1 / 1;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size: clamp(14px, 2.2vw, 20px);
+  line-height:1;
+  padding:0;
+  transition:all 0.18s ease;
+}
+
+/* Desktop / larger breakpoints: prefer fixed count but still allow shrink */
+@media (min-width:720px){
+  .letters-grid{ grid-template-columns: repeat(8, minmax(0,1fr)); gap:10px; }
+  .letter-card{ width: var(--tile-pref); font-size:18px; }
+}
+@media (min-width:1024px){
+  .letters-grid{ grid-template-columns: repeat(10, minmax(0,1fr)); gap:12px; }
+  .letter-card{ width: var(--tile-pref); }
+}
+
+/* Prevent clipping: let panels scroll inside the viewport and respect safe areas */
+.panel{
+  max-height: calc(min(100dvh, 100vh) - 120px); /* header + padding reserve */
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+  box-sizing: border-box;
+}
+
+/* Allow main to respect fold/notch safe areas horizontally */
+main{
+  padding-left: max(16px, env(safe-area-inset-left, 16px));
+  padding-right: max(16px, env(safe-area-inset-right, 16px));
+  box-sizing:border-box;
+}
+
+/* If you still see bottom cutoff on some Samsung browsers, make panel full-height scrollable */
+@media (max-width:420px){
+  .panel{ max-height: calc(min(100dvh, 100vh) - 88px); } /* reduce reserved header space for tiny screens */
+}
 
 </style>
 </head>
