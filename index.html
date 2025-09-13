@@ -19,8 +19,6 @@
     --text-primary:#e8e6eb;
     --text-secondary:#b8b3c4;
     --text-muted:#8a8291;
-/* add inside :root */
-    --tile-size: 64px;
     --border:#3d3650;
     --border-light:#4a445c;
     --shadow:0 8px 32px rgba(0,0,0,0.3);
@@ -119,17 +117,13 @@
     margin:0 auto;
     min-height:calc(100vh - 80px);
   }
-.letters-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
-  justify-items: center;    /* center each tile in its column */
-  column-gap: 8px;          /* tighten horizontal spacing */
-  row-gap: 10px;            /* vertical spacing */
-  margin-top:16px;
-  width:100%;
-  max-width:100%;
-}
-
+  
+  .letters-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:12px;
+    margin-top:16px;
+  }
   
   @media(min-width:720px){
     .letters-grid{
@@ -145,24 +139,24 @@
   }
   
   .letter-card{
-  width: var(--tile-size);
-  height: var(--tile-size);
-  padding: 0;               /* remove internal vertical padding */
-  border-radius: 50%;       /* make circular */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  color:var(--text-primary);
-  cursor:pointer;
-  box-shadow:var(--shadow);
-  font-size:18px;           /* tweak as needed */
-  transition:all 0.2s ease;
-  position:relative;
-  overflow:hidden;
-  line-height:1;
-}
-
+    background:var(--gradient-card);
+    border:1px solid var(--border);
+    padding:6px 12px; /* reduce vertical padding so the letter is more prominent */
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:var(--text-primary);
+    cursor:pointer;
+    min-height:72px; /* slightly taller for better tap target */
+    box-shadow:var(--shadow);
+    font-size:22px; /* larger letter size for visibility */
+    transition:all 0.2s ease;
+    position:relative;
+    overflow:hidden;
+    line-height:1; /* tighten vertical spacing so letter centers cleanly */
+  }
   
   .letter-card::before{
     content:'';
@@ -557,40 +551,46 @@ main, .panel {
   justify-content:center;
   font-size:16px;
 }
-/* Circular letter tiles + consistent sizing (tweak --tile-size to taste) */
-:root { --tile-size: 72px; } /* try 64–88px depending on device */
-.letters-grid { justify-items: center; } /* center grid children */
+
+/* Tighten circular letter spacing and sizing overrides (added to improve packing) */
+:root{ --tile-size:60px; }
+.letters-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), var(--tile-size)));
+  justify-content:center;
+  column-gap:8px;
+  row-gap:10px;
+  margin-top:16px;
+  width:100%;
+  max-width:100%;
+}
 .letter-card{
-  width: var(--tile-size);
-  height: var(--tile-size);
-  padding: 0;
-  border-radius: 50%;
-  min-height: unset;
-  font-size: 20px;
+  width:var(--tile-size);
+  height:var(--tile-size);
+  padding:0;
+  border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
+  font-weight:700;
+  color:var(--text-primary);
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  font-size:16px;
+  transition:all 0.18s ease;
+  position:relative;
+  overflow:hidden;
   line-height:1;
 }
-
-/* Make the header controls and common buttons circular / pill as needed */
-.header-btn, .btn { border-radius: 999px; padding: 10px 14px; }
-.panel-header .btn { /* specifically make the Back button circular */
-  width:44px;
-  height:44px;
-  padding:0;
-  border-radius:50%;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+.letter-card::before{ left:-100%; width:100%; }
+@media (min-width:720px){
+  :root{ --tile-size:64px; }
+  .letters-grid{ column-gap:10px; row-gap:12px; }
 }
-
-/* Keep badges (verse count) readable if using circular category tiles later */
-.cat-item .small { /* no layout break if you later make category tiles circular */ 
-  white-space:nowrap;
+@media (min-width:1024px){
+  :root{ --tile-size:72px; }
+  .letters-grid{ column-gap:12px; row-gap:14px; }
 }
-
-
 </style>
 </head>
 <body>
