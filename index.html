@@ -19,6 +19,8 @@
     --text-primary:#e8e6eb;
     --text-secondary:#b8b3c4;
     --text-muted:#8a8291;
+/* add inside :root */
+    --tile-size: 66px;
     --border:#3d3650;
     --border-light:#4a445c;
     --shadow:0 8px 32px rgba(0,0,0,0.3);
@@ -117,46 +119,59 @@
     margin:0 auto;
     min-height:calc(100vh - 80px);
   }
-  
+
+.letters-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--tile-size), 1fr));
+  justify-items:center;
+  column-gap:6px; /* tightened from 8–16 */
+  row-gap:8px;    /* tightened from 10–16 */
+  margin-top:12px;
+  width:100%;
+  max-width:100%;
+}
+
+/* mid / desktop breakpoints */
+@media(min-width:720px){
   .letters-grid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
+    grid-template-columns:repeat(8,1fr);
+    gap:10px; /* tightened */
+  }
+}
+@media(min-width:1024px){
+  .letters-grid{
+    grid-template-columns:repeat(10,1fr);
     gap:12px;
-    margin-top:16px;
   }
-  
-  @media(min-width:720px){
-    .letters-grid{
-      grid-template-columns:repeat(8,1fr);
-      gap:16px;
-    }
-  }
-  
-  @media(min-width:1024px){
-    .letters-grid{
-      grid-template-columns:repeat(10,1fr);
-    }
-  }
+}
+@media (min-width: 480px) and (max-width: 1023px){
+  .letters-grid{ grid-template-columns: repeat(4,1fr); gap:10px; }
+  .letters-grid .letter-card{ min-height:72px; font-size:18px; }
+}
+@media (max-width: 479px){
+  .letters-grid{ grid-template-columns: repeat(4, 1fr); gap:8px; }
+  .letter-card{ min-height:74px; font-size:22px; }
+}
   
   .letter-card{
-    background:var(--gradient-card);
-    border:1px solid var(--border);
-    padding:6px 12px; /* reduce vertical padding so the letter is more prominent */
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-    color:var(--text-primary);
-    cursor:pointer;
-    min-height:72px; /* slightly taller for better tap target */
-    box-shadow:var(--shadow);
-    font-size:22px; /* larger letter size for visibility */
-    transition:all 0.2s ease;
-    position:relative;
-    overflow:hidden;
-    line-height:1; /* tighten vertical spacing so letter centers cleanly */
-  }
+  width: var(--tile-size);
+  height: var(--tile-size);
+  padding: 0;               /* remove internal vertical padding */
+  border-radius: 50%;       /* make circular */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--text-primary);
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  font-size:18px;           /* tweak as needed */
+  transition:all 0.2s ease;
+  position:relative;
+  overflow:hidden;
+  line-height:1;
+}
+
   
   .letter-card::before{
     content:'';
@@ -551,6 +566,40 @@ main, .panel {
   justify-content:center;
   font-size:16px;
 }
+/* Circular letter tiles + consistent sizing (tweak --tile-size to taste) */
+:root { --tile-size: 72px; } /* try 64–88px depending on device */
+.letters-grid { justify-items: center; } /* center grid children */
+.letter-card{
+  width: var(--tile-size);
+  height: var(--tile-size);
+  padding: 0;
+  border-radius: 50%;
+  min-height: unset;
+  font-size: 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+
+/* Make the header controls and common buttons circular / pill as needed */
+.header-btn, .btn { border-radius: 999px; padding: 10px 14px; }
+.panel-header .btn { /* specifically make the Back button circular */
+  width:44px;
+  height:44px;
+  padding:0;
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Keep badges (verse count) readable if using circular category tiles later */
+.cat-item .small { /* no layout break if you later make category tiles circular */ 
+  white-space:nowrap;
+}
+
+
 </style>
 </head>
 <body>
