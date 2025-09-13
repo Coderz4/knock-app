@@ -650,6 +650,18 @@ main{
   .panel{ max-height: calc(min(100dvh, 100vh) - 88px); } /* reduce reserved header space for tiny screens */
 }
 
+/* Force perfect circular letter tiles: override any min-height/padding that made them oval */
+.letter-card{
+  padding:0 !important;
+  min-height:0 !important;
+  height:auto !important;
+  aspect-ratio:1 / 1 !important;
+  border-radius:50% !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
 </style>
 </head>
 <body>
