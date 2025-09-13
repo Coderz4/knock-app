@@ -662,6 +662,27 @@ main{
   justify-content:center;
 }
 
+  @media (max-width: 600px) {
+  .letters-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+  }
+}
+
+  :root{
+  --tile-min:64px;   /* smallest on tiny phones */
+  --tile-pref:100px; /* preferred tile size on most phones */
+  --tile-max:140px;  /* cap for very large screens */
+}
+
+/* override width/font so tiles get bigger but stay circular */
+.letter-card{
+  width: clamp(var(--tile-min), 14vw, var(--tile-pref)) !important;
+  aspect-ratio: 1 / 1 !important;
+  font-size: clamp(16px, 3.5vw, 22px) !important;
+  padding:0 !important;
+}
+
 </style>
 </head>
 <body>
