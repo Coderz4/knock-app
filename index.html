@@ -852,6 +852,49 @@ main{
   }
 }
 
+  /* Mobile-only: prevent the panel title from wrapping on narrow Samsung / Android phones */
+@media (max-width: 480px) {
+  .panel-header {
+    /* keep the header layout simple so title and back button don't overlap */
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  /* Keep the back/home button on its own row (left) */
+  .panel-header > div:first-child {
+    display:flex;
+    align-items:center;
+    width:100%;
+    gap:12px;
+  }
+
+  /* Force the title to stay single-line, shrink if needed, and use ellipsis */
+  .panel-header .panel-title {
+    position: static !important;
+    margin: 0;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: calc(100% - 88px) !important; /* leave room for the back button */
+    font-size: clamp(14px, 4.5vw, 16px) !important; /* scale down slightly on small screens */
+    line-height: 1 !important;
+    text-align: left !important;
+    z-index: 3 !important;
+  }
+
+  /* keep the helper subtitle visible under the title */
+  .panel-header > .small {
+    display:block;
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+}
+
 
 </style>
 </head>
