@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KNOCK Matt7|7</title>
+<title>Emotional Bible Verse Browser — Enhanced</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
   
@@ -19,6 +19,7 @@
     --text-primary:#e8e6eb;
     --text-secondary:#b8b3c4;
     --text-muted:#8a8291;
+/* add inside :root */
     --tile-size: 64px;
     --border:#3d3650;
     --border-light:#4a445c;
@@ -87,24 +88,18 @@
   .header-buttons{
     display:flex;
     gap:12px;
-    align-items:center;
   }
   
   .header-btn{
     background:var(--card-bg);
     color:var(--text-primary);
     border:1px solid var(--border);
-    padding:10px 12px;
-    border-radius:999px;
+    padding:10px 16px;
+    border-radius:10px;
     cursor:pointer;
     font-weight:500;
     transition:all 0.2s ease;
-    font-size:16px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:44px;
-    height:44px;
+    font-size:14px;
   }
   
   .header-btn:hover{
@@ -134,7 +129,6 @@
   width:100%;
   max-width:100%;
 }
-
 
   
   @media(min-width:720px){
@@ -168,7 +162,6 @@
   overflow:hidden;
   line-height:1;
 }
-
 
   
   .letter-card::before{
@@ -221,7 +214,6 @@
     font-size:18px;
     font-weight:600;
     color:var(--text-primary);
-    display:inline-block;
   }
   
   .list{
@@ -493,7 +485,6 @@
   main{ max-width:980px; padding-left:16px; padding-right:16px; }
 }
 
-
 /* Mobile-specific: prefer wider, larger letter tiles on narrow screens */
 @media (max-width: 479px){
   .letters-grid{ grid-template-columns: repeat(4, 1fr); gap:12px; }
@@ -515,7 +506,6 @@ main, .panel {
 /* allow grid children to shrink properly on narrow viewports */
 .letters-grid, .grid-list, .list, .panel { min-width: 0; }
 .letter-card, .cat-item, .verse-item { min-width: 0; }
-
 
 @media (max-width: 640px){
   .panel-header > div:first-child .panel-title { flex: 1; text-align: center; margin: 0; }
@@ -556,7 +546,6 @@ main, .panel {
   .panel-header > .small{ display:none; }
 }
 
-
 /* larger circular back/home buttons in panel headers */
 .panel-header .btn{
   width:64px;
@@ -584,7 +573,6 @@ main, .panel {
   line-height:1;
 }
 
-
 /* Make the header controls and common buttons circular / pill as needed */
 .header-btn, .btn { border-radius: 999px; padding: 10px 14px; }
 .panel-header .btn { /* specifically make the Back button circular */
@@ -597,18 +585,14 @@ main, .panel {
   justify-content:center;
 }
 
-
 /* Keep badges (verse count) readable if using circular category tiles later */
 .cat-item .small { /* no layout break if you later make category tiles circular */ 
   white-space:nowrap;
 }
 
 
-
-
 /* Responsive tile sizing (fluid, works across devices including foldables) */
 :root{ --tile-min:48px; --tile-pref:72px; --tile-max:88px; }
-
 
 /* Grid: auto-fit with a fluid min size so columns reflow to fit available width */
 .letters-grid{
@@ -620,7 +604,6 @@ main, .panel {
   padding:8px 0;
   box-sizing:border-box;
 }
-
 
 /* Circular tiles driven by width; aspect-ratio keeps them true circles */
 .letter-card{
@@ -636,7 +619,6 @@ main, .panel {
   transition:all 0.18s ease;
 }
 
-
 /* Desktop / larger breakpoints: prefer fixed count but still allow shrink */
 @media (min-width:720px){
   .letters-grid{ grid-template-columns: repeat(8, minmax(0,1fr)); gap:10px; }
@@ -647,7 +629,6 @@ main, .panel {
   .letter-card{ width: var(--tile-pref); }
 }
 
-
 /* Prevent clipping: let panels scroll inside the viewport and respect safe areas */
 .panel{
   max-height: calc(min(100dvh, 100vh) - 120px); /* header + padding reserve */
@@ -657,7 +638,6 @@ main, .panel {
   box-sizing: border-box;
 }
 
-
 /* Allow main to respect fold/notch safe areas horizontally */
 main{
   padding-left: max(16px, env(safe-area-inset-left, 16px));
@@ -665,12 +645,10 @@ main{
   box-sizing:border-box;
 }
 
-
 /* If you still see bottom cutoff on some Samsung browsers, make panel full-height scrollable */
 @media (max-width:420px){
   .panel{ max-height: calc(min(100dvh, 100vh) - 88px); } /* reduce reserved header space for tiny screens */
 }
-
 
 /* Force perfect circular letter tiles: override any min-height/padding that made them oval */
 .letter-card{
@@ -684,7 +662,6 @@ main{
   justify-content:center;
 }
 
-
   @media (max-width: 600px) {
   .letters-grid {
     grid-template-columns: repeat(4, 1fr) !important;
@@ -692,13 +669,11 @@ main{
   }
 }
 
-
   :root{
   --tile-min:64px;   /* smallest on tiny phones */
   --tile-pref:100px; /* preferred tile size on most phones */
   --tile-max:140px;  /* cap for very large screens */
 }
-
 
 /* override width/font so tiles get bigger but stay circular */
 .letter-card{
@@ -708,13 +683,11 @@ main{
   padding:0 !important;
 }
 
-
   /* Fix overlap on foldables/tablets: let the cell control size */
 .letters-grid{
   grid-template-columns: repeat(auto-fit, minmax(88px, 1fr)) !important;
   gap: 10px !important;
 }
-
 
 .letter-card{
   width: 100% !important;        /* fill the cell */
@@ -723,233 +696,33 @@ main{
   box-sizing: border-box;
 }
 
-
 /* optional: on very small phones keep 4 columns */
 @media (max-width: 600px){
   .letters-grid{ grid-template-columns: repeat(4, 1fr) !important; }
 }
 
-/* ====== NEW: center titles globally (only change requested) ====== */
-/* Center all panel titles (Choose a Letter, Categories, Verses, etc.) */
-.panel-header { position: relative; }
-
-
-.panel-header .panel-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  text-align: center;
-  white-space: nowrap;
-  max-width: calc(100% - 160px);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  pointer-events: none;
-  z-index: 6;
-  font-size: 18px; /* keeps existing size; change here if you want larger/smaller globally */
-  line-height: 1;
-}
-/* ====== end global title centering ====== */
-
-
-
-.panel-header { /* increase vertical space if needed */ padding-top: 20px; padding-bottom: 20px; }
-.panel-header .panel-title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 1.2;   /* increase to avoid clipping descenders */
-  font-size: 18px;    /* change here to resize titles */
-}
-
-/* ====== MOBILE-ONLY: remove labels from header buttons and align panel title to the far right with Home button ====== */
-@media (max-width: 720px) {
-  /* Make sure header buttons remain icon-only and sized nicely (already icon-only in HTML) */
-  .header-btn { width:44px; height:44px; padding:0; font-size:18px; }
-
-  /* Override absolute centering of panel title on mobile so it participates in flow */
-  .panel-header {
-    display: flex !important;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-
-  /* First row contains back button and title aligned to the far right */
-  .panel-header > div:first-child {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    width:100%;
-  }
-
-  /* push title to the far right within the first row */
-  .panel-header > div:first-child .panel-title {
-    position: static !important;
-    margin-left: auto;
-    text-align: right;
-    pointer-events: auto !important;
-    z-index: 3 !important;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: calc(100% - 80px);
-  }
-
-  /* keep the back/home button at left and normal size */
-  .panel-header > div:first-child .btn {
-    position: relative !important;
-    width:44px;
-    height:44px;
-    padding:0;
-    border-radius:50%;
-    flex: 0 0 auto;
-  }
-
-  /* Keep filter section below but right-aligned */
-  .panel-header .filter-section {
-    align-self: flex-end;
-    margin-top: 4px;
-  }
-
-  /* Ensure the small helper text doesn't collide with title */
-  .panel-header > .small { display:block; color:var(--text-muted); margin-top:4px; }
-}
-/* ====== end mobile-only adjustments ====== */
-
-/* Mobile-only: keep panel title in flow to avoid overlapping the 'small' subtitle */
-@media (max-width: 720px) {
-  .panel-header {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
+/* ====== MODIFIED: center titles only on desktop (min-width:1024px) ====== */
+/* Center panel titles (Choose a Letter, Categories, Verses, etc.) only on desktop */
+@media (min-width:1024px) {
+  .panel-header { position: relative; }
 
   .panel-header .panel-title {
-    position: static !important;
-    left: auto !important;
-    top: auto !important;
-    transform: none !important;
-    margin: 0;
-    display: block;
-    width: 100%;
-    text-align: center;
-    pointer-events: auto !important;
-    z-index: 2 !important;
-    white-space: normal;
-    overflow: visible;
-  }
-
-  /* make sure the helper/subtitle is visible under the title */
-  .panel-header > .small {
-    display: block;
-    margin-top: 6px;
-    text-align: center;
-    color: var(--text-muted);
-  }
-}
-
-  /* Mobile-only: prevent the panel title from wrapping on narrow Samsung / Android phones */
-@media (max-width: 480px) {
-  .panel-header {
-    /* keep the header layout simple so title and back button don't overlap */
-    display: flex !important;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
-
-  /* Keep the back/home button on its own row (left) */
-  .panel-header > div:first-child {
-    display:flex;
-    align-items:center;
-    width:100%;
-    gap:12px;
-  }
-
-  /* Force the title to stay single-line, shrink if needed, and use ellipsis */
-  .panel-header .panel-title {
-    position: static !important;
-    margin: 0;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: calc(100% - 88px) !important; /* leave room for the back button */
-    font-size: clamp(14px, 4.5vw, 16px) !important; /* scale down slightly on small screens */
-    line-height: 1 !important;
-    text-align: left !important;
-    z-index: 3 !important;
-  }
-
-  /* keep the helper subtitle visible under the title */
-  .panel-header > .small {
-    display:block;
-    margin-top: 4px;
-    color: var(--text-muted);
-    font-size: 12px;
-  }
-}
-
-/* Mobile: keep Back on the left, force the header title truly centered */
-@media (max-width: 600px){
-  /* The containers that hold Back + Title */
-  .CategoryListHeader,
-  .CategoryDetailHeader{
-    position: relative;
-    min-height: 56px;            /* ensure enough height for absolute centering */
-  }
-
-  /* The Back control (left) */
-  .CategoryListHeader .back,
-  .CategoryDetailHeader .back{
-    position: relative;
-    z-index: 2;                  /* stays clickable above the centered title */
-  }
-
-  /* The title text */
-  .CategoryListHeader .title,
-  .CategoryDetailHeader .title{
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); /* dead-center regardless of left content */
+    transform: translateX(-50%);
     margin: 0;
     text-align: center;
-    max-width: 80vw;             /* prevent overflow on very long titles */
     white-space: nowrap;
+    max-width: calc(100% - 160px);
     overflow: hidden;
     text-overflow: ellipsis;
+    pointer-events: none;
+    z-index: 6;
+    font-size: 18px; /* keeps existing size; change here if you want larger/smaller on desktop */
+    line-height: 1;
   }
 }
-
-/* Mobile-only: right-align the title for Category List + Category Detail */
-@media (max-width: 720px){
-  /* Ensure the first row (Back + Title) is a full-width flex row */
-  .panel-header.panel-header--center-title > div:first-child{
-    display:flex !important;
-    align-items:center !important;
-    gap:12px !important;
-    width:100% !important;
-  }
-  /* Cancel previous centering and push title to the right */
-  .panel-header.panel-header--center-title .panel-title{
-    position: static !important;
-    left: auto !important;
-    top: auto !important;
-    transform: none !important;
-    margin-left: auto !important;         /* moves title to the far right */
-    text-align: right !important;
-    max-width: calc(100% - 88px) !important; /* room for Back button */
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-  }
-}
-
+/* ====== end modified block ====== */
 
 </style>
 </head>
@@ -958,13 +731,13 @@ main{
   <div style="display:flex;gap:16px;align-items:center">
     <div class="logo">K</div>
     <div>
-      <div class="header-title">KNOCK</div>
-      <div class="header-subtitle">His Word for every season Matt 7:7</div>
+      <div class="header-title">Emotional Bible Verse Browser</div>
+      <div class="header-subtitle">Enhanced — Navigate by emotion & theme</div>
     </div>
   </div>
   <div class="header-buttons">
-    <button id="btn-notes" class="header-btn" aria-label="Notes">📝</button>
-    <button id="btn-favs" class="header-btn" aria-label="Favorites">⭐</button>
+    <button id="btn-notes" class="header-btn">📝 Notes</button>
+    <button id="btn-favs" class="header-btn">⭐ Favorites</button>
   </div>
 </header>
 <main id="app"></main>
@@ -1007,10 +780,43 @@ const SEED={
   notes:[],favorites:[],meta:{seedAt:new Date().toISOString(),version:'enhanced-seed'}
 };
 
-
 let DB=null; 
 const app=document.getElementById('app'), modalRoot=document.getElementById('modal-root');
 
+// --- body scroll lock helpers (added to prevent background scroll while modal open) ---
+let __knock_scroll_pos = 0;
+function lockBodyScroll(){
+  // save current scroll
+  __knock_scroll_pos = window.scrollY || document.documentElement.scrollTop || 0;
+  // disable smooth scroll to avoid jump side-effects during restore
+  try{ document.documentElement.style.scrollBehavior = 'auto'; }catch(e){}
+  // lock body by fixing its position and offsetting by saved scroll
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${__knock_scroll_pos}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  // contain overscroll to prevent iOS elastic bounce on background
+  document.body.style.overscrollBehavior = 'contain';
+}
+function unlockBodyScroll(){
+  // restore body styles and return to previous scroll position
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.style.overscrollBehavior = '';
+  // restore scroll position
+  window.scrollTo(0, __knock_scroll_pos || 0);
+  try{ document.documentElement.style.scrollBehavior = ''; }catch(e){}
+}
+function closeModal(){
+  modalRoot.innerHTML = '';
+  modalRoot.setAttribute('aria-hidden','true');
+  try{ unlockBodyScroll(); }catch(e){}
+}
+// --- end scroll helpers ---
 
 function load(){
   const raw=localStorage.getItem(STORAGE_KEY);
@@ -1033,11 +839,9 @@ function load(){
   }
 }
 
-
 function save(){
   localStorage.setItem(STORAGE_KEY,JSON.stringify(DB));
 }
-
 
 function mount(){
   app.innerHTML='';
@@ -1048,9 +852,7 @@ function mount(){
   else if(state.view==='favorites') renderFavorites();
 }
 
-
 const state={view:'home',selectedLetter:null,selectedCategory:null};
-
 
 function renderHome(){
   const panel=document.createElement('div');
@@ -1070,7 +872,7 @@ function renderHome(){
     b.className='letter-card';
     b.tabIndex=0;
     b.innerText=l.label;
-    b.onclick = () => {
+    b.onclick=()=>{
       state.selectedLetter=l.key;
       state.view='categories';
       mount();
@@ -1085,14 +887,12 @@ function renderHome(){
   });
 }
 
-
 function renderCategories(){
   const letter=state.selectedLetter;
   const panel=document.createElement('div');
-  // Add modifier class so CSS targets only this page's header
   panel.className='panel';
   panel.innerHTML=`
-    <div class="panel-header panel-header--center-title">
+    <div class="panel-header">
       <div style="display:flex;align-items:center;gap:12px">
         <button id='back' class='btn btn-secondary'>← Back</button> 
         <div class="panel-title">Categories for ${letter}</div>
@@ -1103,9 +903,8 @@ function renderCategories(){
   `;
   app.appendChild(panel);
 
-
   panel.querySelector('#cats').classList.add('grid-list');
-panel.querySelector('#back').onclick = () => {
+panel.querySelector('#back').onclick=()=>{
     state.view='home';
     mount();
   };
@@ -1130,7 +929,7 @@ panel.querySelector('#back').onclick = () => {
         </div>
       </div>
     `;
-    d.onclick = () => {
+    d.onclick=()=>{
       state.selectedCategory=c.id;
       state.view='verses';
       mount();
@@ -1139,16 +938,14 @@ panel.querySelector('#back').onclick = () => {
   });
 }
 
-
 function renderVerses(){
   const cat=DB.categories.find(x=>x.id===state.selectedCategory);
   const verses = DB.verses.filter(v=>v.categoryId===cat.id);
   
   const panel=document.createElement('div');
   panel.className='panel';
-  // Add modifier class so CSS targets only this page's header
   panel.innerHTML=`
-    <div class="panel-header panel-header--center-title">
+    <div class="panel-header">
       <div style="display:flex;align-items:center;gap:12px">
         <button id='back' class='btn btn-secondary'>← Back</button> 
         <div class="panel-title">${cat.name}</div>
@@ -1159,10 +956,9 @@ function renderVerses(){
   `;
   app.appendChild(panel);
 
-
   const vsEl = panel.querySelector('#vs');
   if (vsEl) vsEl.classList.add('grid-list');
-panel.querySelector('#back').onclick = () => {
+panel.querySelector('#back').onclick=()=>{
     state.view='categories';
     mount();
   };
@@ -1181,11 +977,10 @@ panel.querySelector('#back').onclick = () => {
       <div class='verse-ref'>${v.reference} <span class='small'>${v.translation}</span></div>
       <div class='verse-text'>${v.text}</div>
     `;
-    el.onclick = () => openVerseDetail(v.id);
+    el.onclick=()=>openVerseDetail(v.id);
     list.appendChild(el);
   });
 }
-
 
 function openVerseDetail(id, opts = {}){
   const v=DB.verses.find(x=>x.id===id);
@@ -1214,20 +1009,21 @@ function openVerseDetail(id, opts = {}){
     </div>
   `;
   
+  // lock background scroll now that modal is in the DOM
+  try{ lockBodyScroll(); }catch(e){}
+
   const backdrop = document.getElementById('backdrop');
   // click outside to close
   backdrop.addEventListener('click', (e)=>{ 
     if(e.target && e.target.id==='backdrop'){ 
-      modalRoot.innerHTML=''; 
-      modalRoot.setAttribute('aria-hidden','true'); 
+      closeModal();
     } 
   });
   
   // esc to close
   backdrop.addEventListener('keydown', (e)=>{ 
     if(e.key==='Escape'){ 
-      modalRoot.innerHTML=''; 
-      modalRoot.setAttribute('aria-hidden','true'); 
+      closeModal();
     } 
   });
   
@@ -1258,9 +1054,8 @@ function openVerseDetail(id, opts = {}){
     toggleFav(id); 
     refreshFavUI(); 
     if(state.view === 'favorites'){ 
-      modalRoot.innerHTML=''; 
-      modalRoot.setAttribute('aria-hidden','true'); 
-      mount(); 
+      closeModal();
+      mount();
     } 
   };
   
@@ -1276,7 +1071,6 @@ function openVerseDetail(id, opts = {}){
     }, 100); 
   }
 }
-
 
 function saveNote(verseId,text){
   const ex=DB.notes.find(n=>n.verseId===verseId); 
@@ -1295,7 +1089,6 @@ function saveNote(verseId,text){
   save(); 
 }
 
-
 function toggleFav(verseId){
   const f=DB.favorites.find(x=>x.verseId===verseId); 
   if(f){
@@ -1309,7 +1102,6 @@ function toggleFav(verseId){
   } 
   save(); 
 }
-
 
 function renderNotes(){
   const panel=document.createElement('div');
@@ -1332,7 +1124,7 @@ function renderNotes(){
   
   app.appendChild(panel);
   
-  panel.querySelector('#back').onclick = () => {
+  panel.querySelector('#back').onclick=()=>{
     state.view='home';
     mount();
   };
@@ -1393,7 +1185,6 @@ function renderNotes(){
   renderNotesList();
 }
 
-
 function renderFavorites(){
   const panel=document.createElement('div');
   panel.className='panel';
@@ -1415,7 +1206,7 @@ function renderFavorites(){
   
   app.appendChild(panel);
   
-  panel.querySelector('#back').onclick = () => {
+  panel.querySelector('#back').onclick=()=>{
     state.view='home';
     mount();
   };
@@ -1435,7 +1226,6 @@ function renderFavorites(){
     state.favsFilterCategory = favsCat.value; 
     renderFavoritesList(); 
   });
-
 
   function renderFavoritesList(){
     const fl=panel.querySelector('#fl'); 
@@ -1495,25 +1285,20 @@ function renderFavorites(){
   renderFavoritesList();
 }
 
-
 // header buttons
-document.getElementById('btn-notes').onclick = () => {
+document.getElementById('btn-notes').onclick=()=>{
   state.view='notes';
   mount();
 };
 
-
-
-document.getElementById('btn-favs').onclick = () => {
+document.getElementById('btn-favs').onclick=()=>{
   state.view='favorites';
   mount();
 };
 
-
 // init
 load();
 mount();
-
 
 /* Prevent page dragging when touching interactive tiles on mobile */
 (function(){
@@ -1532,7 +1317,6 @@ mount();
   document.addEventListener('touchend', onTouchEnd, {passive:true});
   document.addEventListener('touchcancel', onTouchEnd, {passive:true});
 })();
-
 
 /* Swipe-to-go-back: cross-device simple detector (swipe right to go back) */
 (function(){
