@@ -19,6 +19,7 @@
     --text-primary:#e8e6eb;
     --text-secondary:#b8b3c4;
     --text-muted:#8a8291;
+/* add inside :root */
     --tile-size: 64px;
     --border:#3d3650;
     --border-light:#4a445c;
@@ -700,38 +701,6 @@ main{
   .letters-grid{ grid-template-columns: repeat(4, 1fr) !important; }
 }
 
-/* ====== NEW: center titles globally (only change requested) ====== */
-/* Center all panel titles (Choose a Letter, Categories, Verses, etc.) */
-.panel-header { position: relative; }
-
-.panel-header .panel-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  text-align: center;
-  white-space: nowrap;
-  max-width: calc(100% - 160px);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  pointer-events: none;
-  z-index: 6;
-  font-size: 18px; /* keeps existing size; change here if you want larger/smaller globally */
-  line-height: 1;
-}
-/* ====== end global title centering ====== */
-
-.panel-header { /* increase vertical space if needed */ padding-top: 20px; padding-bottom: 20px; }
-.panel-header .panel-title {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 1.2;   /* increase to avoid clipping descenders */
-  font-size: 18px;    /* change here to resize titles */
-}
-
-
 </style>
 </head>
 <body>
@@ -863,10 +832,9 @@ function renderHome(){
 function renderCategories(){
   const letter=state.selectedLetter;
   const panel=document.createElement('div');
-  // Add modifier class so CSS targets only this page's header
   panel.className='panel';
   panel.innerHTML=`
-    <div class="panel-header panel-header--center-title">
+    <div class="panel-header">
       <div style="display:flex;align-items:center;gap:12px">
         <button id='back' class='btn btn-secondary'>← Back</button> 
         <div class="panel-title">Categories for ${letter}</div>
@@ -918,9 +886,8 @@ function renderVerses(){
   
   const panel=document.createElement('div');
   panel.className='panel';
-  // Add modifier class so CSS targets only this page's header
   panel.innerHTML=`
-    <div class="panel-header panel-header--center-title">
+    <div class="panel-header">
       <div style="display:flex;align-items:center;gap:12px">
         <button id='back' class='btn btn-secondary'>← Back</button> 
         <div class="panel-title">${cat.name}</div>
