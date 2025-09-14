@@ -927,6 +927,29 @@ main{
   }
 }
 
+/* Mobile-only: right-align the title for Category List + Category Detail */
+@media (max-width: 720px){
+  /* Ensure the first row (Back + Title) is a full-width flex row */
+  .panel-header.panel-header--center-title > div:first-child{
+    display:flex !important;
+    align-items:center !important;
+    gap:12px !important;
+    width:100% !important;
+  }
+  /* Cancel previous centering and push title to the right */
+  .panel-header.panel-header--center-title .panel-title{
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    margin-left: auto !important;         /* moves title to the far right */
+    text-align: right !important;
+    max-width: calc(100% - 88px) !important; /* room for Back button */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
 
 
 
