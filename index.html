@@ -895,6 +895,24 @@ main{
   }
 }
 
+  /* Center the mobile headers with a left "Back" button */
+@media (max-width: 600px){
+  .CategoryListHeader,
+  .CategoryDetailHeader{
+    display:flex; align-items:center;
+  }
+  .CategoryListHeader::before,
+  .CategoryListHeader::after,
+  .CategoryDetailHeader::before,
+  .CategoryDetailHeader::after{
+    content:""; flex:1 1 0;   /* symmetric spacers */
+  }
+  .CategoryListHeader .title,
+  .CategoryDetailHeader .title{
+    margin:0; text-align:center; width:100%;
+  }
+}
+
 
 </style>
 </head>
