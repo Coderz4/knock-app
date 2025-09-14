@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -757,9 +756,7 @@ main{
   font-size: 18px;    /* change here to resize titles */
 }
 
-
-/* ====== FIX: ensure title does NOT visually overlap filter controls on narrow screens ====== */
-/* On narrow viewports we make the header flow vertically so the title won't sit on top of controls */
+/* ====== MOBILE-ONLY FIX: stack header and make title participate in flow to avoid overlap ====== */
 @media (max-width: 720px) {
   .panel-header {
     display: flex !important;
@@ -782,18 +779,16 @@ main{
     max-width: 100%;
     overflow: visible;
   }
-  /* Keep the left-side back button consistent and visible */
   .panel-header > div:first-child {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
   }
   .panel-header .filter-section {
     align-self: flex-end;
   }
-  /* ensure circular back buttons don't overlap when stacked */
-  .panel-header .btn{
+  .panel-header .btn {
     position: relative !important;
     width: auto;
     height: auto;
@@ -801,7 +796,7 @@ main{
     border-radius: 999px;
   }
 }
-/* ====== end FIX ====== */
+/* ====== end mobile-only fix ====== */
 
 </style>
 </head>
