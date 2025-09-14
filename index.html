@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -951,6 +950,30 @@ main{
   }
 }
 
+/* Mobile: keep Home (Back) on the left and put Notes/Favorites on the RIGHT
+   on the same row in panel headers (Notes/Favorites screens) */
+@media (max-width: 720px){
+  .panel-header{ 
+    display: grid !important;
+    grid-template-columns: auto 1fr auto; /* Back | Title | Right buttons */
+    align-items: center;
+    row-gap: 8px;
+  }
+  /* first child is the Back + Title group */
+  .panel-header > div:first-child{
+    display:flex; align-items:center; gap:12px;
+  }
+  /* right side: place the two header buttons at far right */
+  .panel-header #btn-notes,
+  .panel-header #btn-favs{
+    justify-self: end;      /* send to right edge */
+  }
+  /* keep the filter row (if present) beneath, full width */
+  .panel-header .filter-section{
+    grid-column: 1 / -1;    /* span all columns below the row */
+    justify-content: flex-end;
+  }
+}
 
 
 </style>
