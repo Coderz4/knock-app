@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -87,18 +88,24 @@
   .header-buttons{
     display:flex;
     gap:12px;
+    align-items:center;
   }
   
   .header-btn{
     background:var(--card-bg);
     color:var(--text-primary);
     border:1px solid var(--border);
-    padding:10px 16px;
-    border-radius:10px;
+    padding:10px 12px;
+    border-radius:999px;
     cursor:pointer;
     font-weight:500;
     transition:all 0.2s ease;
-    font-size:14px;
+    font-size:16px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:44px;
+    height:44px;
   }
   
   .header-btn:hover{
@@ -215,6 +222,7 @@
     font-size:18px;
     font-weight:600;
     color:var(--text-primary);
+    display:inline-block;
   }
   
   .list{
@@ -756,8 +764,12 @@ main{
   font-size: 18px;    /* change here to resize titles */
 }
 
-/* ====== MOBILE-ONLY FIX: stack header and make title participate in flow to avoid overlap ====== */
+/* ====== MOBILE-ONLY: remove labels from header buttons and align panel title to the far right with Home button ====== */
 @media (max-width: 720px) {
+  /* Make sure header buttons remain icon-only and sized nicely (already icon-only in HTML) */
+  .header-btn { width:44px; height:44px; padding:0; font-size:18px; }
+
+  /* Override absolute centering of panel title on mobile so it participates in flow */
   .panel-header {
     display: flex !important;
     flex-direction: column;
@@ -766,37 +778,80 @@ main{
     padding-top: 12px;
     padding-bottom: 12px;
   }
+
+  /* First row contains back button and title aligned to the far right */
+  .panel-header > div:first-child {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+  }
+
+  /* push title to the far right within the first row */
+  .panel-header > div:first-child .panel-title {
+    position: static !important;
+    margin-left: auto;
+    text-align: right;
+    pointer-events: auto !important;
+    z-index: 3 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: calc(100% - 80px);
+  }
+
+  /* keep the back/home button at left and normal size */
+  .panel-header > div:first-child .btn {
+    position: relative !important;
+    width:44px;
+    height:44px;
+    padding:0;
+    border-radius:50%;
+    flex: 0 0 auto;
+  }
+
+  /* Keep filter section below but right-aligned */
+  .panel-header .filter-section {
+    align-self: flex-end;
+    margin-top: 4px;
+  }
+
+  /* Ensure the small helper text doesn't collide with title */
+  .panel-header > .small { display:block; color:var(--text-muted); margin-top:4px; }
+}
+/* ====== end mobile-only adjustments ====== */
+
+/* Mobile-only: keep panel title in flow to avoid overlapping the 'small' subtitle */
+@media (max-width: 720px) {
+  .panel-header {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
   .panel-header .panel-title {
     position: static !important;
     left: auto !important;
     top: auto !important;
     transform: none !important;
     margin: 0;
+    display: block;
+    width: 100%;
     text-align: center;
     pointer-events: auto !important;
     z-index: 2 !important;
     white-space: normal;
-    max-width: 100%;
     overflow: visible;
   }
-  .panel-header > div:first-child {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .panel-header .filter-section {
-    align-self: flex-end;
-  }
-  .panel-header .btn {
-    position: relative !important;
-    width: auto;
-    height: auto;
-    padding: 8px 12px;
-    border-radius: 999px;
+
+  /* make sure the helper/subtitle is visible under the title */
+  .panel-header > .small {
+    display: block;
+    margin-top: 6px;
+    text-align: center;
+    color: var(--text-muted);
   }
 }
-/* ====== end mobile-only fix ====== */
+
 
 </style>
 </head>
@@ -810,8 +865,8 @@ main{
     </div>
   </div>
   <div class="header-buttons">
-    <button id="btn-notes" class="header-btn">📝 Notes</button>
-    <button id="btn-favs" class="header-btn">⭐ Favorites</button>
+    <button id="btn-notes" class="header-btn" aria-label="Notes">📝</button>
+    <button id="btn-favs" class="header-btn" aria-label="Favorites">⭐</button>
   </div>
 </header>
 <main id="app"></main>
@@ -1433,3 +1488,4 @@ mount();
 </script>
 </body>
 </html>
+
