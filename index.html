@@ -724,6 +724,42 @@ main{
 }
 /* ====== end modified block ====== */
 
+  /* --- Mobile header/nav fix: prevent overlapping & keep text readable --- */
+@media (max-width: 720px){
+  /* Make the header a two-row grid: Back | Title | Actions  /  Filters full-width */
+  .panel-header{
+    display: grid !important;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    grid-column-gap: 12px;
+    grid-row-gap: 8px;
+    align-items: center;
+  }
+
+  /* Ensure children can shrink so text doesn't overflow */
+  .panel-header > *{ min-width: 0 !important; }
+
+  /* Left: Home/Back */
+  .panel-header .back{ grid-column: 1; grid-row: 1; justify-self: start; }
+
+  /* Center/Right: Title (kept readable, no absolute centering on mobile) */
+  .panel-header .panel-title{
+    grid-column: 2; grid-row: 1;
+    position: static !important;
+    transform: none !important;
+    left: auto !important; top: auto !important;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    text-align: left;           /* keep current look; not a visual change */
+  }
+
+  /* Right: Notes / Favorites buttons stay on the same row, at the right edge */
+  #btn-notes, #btn-favs{ grid-column: 3; grid-row: 1; justify-self: end; }
+
+  /* Second row: filters (e.g., “All Categories”) span full width below */
+  .panel-header .filter-section{ grid-column: 1 / -1; grid-row: 2; }
+}
+
+  
 </style>
 </head>
 <body>
